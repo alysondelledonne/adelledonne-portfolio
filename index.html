@@ -4,276 +4,1040 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alyson DelleDonne</title>
-<meta name="description" content="Alyson DelleDonne: platform engineer and consultant working on OpenShift, automation, and plain-English writing about AI.">
+<meta name="description" content="Alyson DelleDonne is a platform engineer and Red Hat consultant who builds OpenShift platforms, automates infrastructure, and writes bits & gloss.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Layout: one column, sticky tab bar; each "page" is a section shown by #hash. Gloss (rose) meets bits (mono, steel). */
+/* Layout: one long dark scroll on a dot grid. Fixed pill nav + right section rail; sections open with a mono "NN —— LABEL" eyebrow and a
+   big sans headline with one serif-italic rose word. Gloss = rose + serif italic; bits = mono + steel. Dark-only by design. */
 :root {
-  --bg: #fbf7f8;
-  --surface: #ffffff;
-  --ink: #1f1a2c;
-  --muted: #625a70;
-  --line: #e9dfe4;
-  --rose: #b8335f;
-  --rose-soft: #f9e4ec;
-  --steel: #2d5a84;
-  --ok: #2f7a4f;
-  --ok-soft: #e2f2e8;
-  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --f-body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: dark;
+  --ink: #0c0b0e;
+  --ink-2: #131116;
+  --card: #17151b;
+  --card-2: #1d1a22;
+  --paper: #f3eff0;
+  --muted: #a39ca9;
+  --dim: #6b6472;
+  --line: rgba(243, 239, 240, .09);
+  --line-2: rgba(243, 239, 240, .17);
+  --dot: rgba(243, 239, 240, .07);
+  --rose: #ff5c8a;
+  --rose-2: #ff9bb8;
+  --rose-wash: rgba(255, 92, 138, .12);
+  --steel: #82b4e2;
+  --ok: #6fd49b;
+  --ok-wash: rgba(111, 212, 155, .13);
+  --f-sans: "Geist", "Inter var", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --f-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #16131d; --surface: #1f1b28; --ink: #f1ecf3; --muted: #aaa1b5; --line: #342d40;
-  --rose: #f07aa2; --rose-soft: #3a2230; --steel: #8cb6dc; --ok: #7fd3a0; --ok-soft: #1f3528; color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #16131d; --surface: #1f1b28; --ink: #f1ecf3; --muted: #aaa1b5; --line: #342d40;
-  --rose: #f07aa2; --rose-soft: #3a2230; --steel: #8cb6dc; --ok: #7fd3a0; --ok-soft: #1f3528; color-scheme: dark; }
 
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--f-body); }
-a { color: var(--rose); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; border-radius: 4px; }
-.wrap { max-width: 860px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ink); color: var(--paper); font: 400 17px/1.6 var(--f-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; }
+::selection { background: var(--rose); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; border-radius: 6px; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
+.mono { font-family: var(--f-mono); }
+em.s, .s { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--rose); letter-spacing: 0; }
 
-/* Header */
-header.top { padding-block: 56px 28px; }
-.eyebrow { font: 600 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--steel); }
-h1 { font: 700 clamp(40px, 8vw, 68px)/1.02 var(--f-display); letter-spacing: -.02em; margin: 14px 0 16px; text-wrap: balance; }
-h1 .gloss { color: var(--rose); }
-.lede { font-size: 20px; color: var(--muted); max-width: 40ch; margin: 0; text-wrap: pretty; }
-.status { margin-top: 22px; display: inline-flex; flex-wrap: wrap; gap: 6px 14px; font: 400 13px/1.5 var(--f-mono); color: var(--muted); border: 1px solid var(--line); background: var(--surface); padding: 8px 12px; border-radius: 8px; }
-.status b { color: var(--ok); font-weight: 600; }
-.links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 20px; font-weight: 600; }
+/* ---------- Background: dot grid + cursor glow ---------- */
+.bg { position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(640px circle at var(--mx, 70%) var(--my, 10%), rgba(255, 92, 138, .09), transparent 62%),
+    radial-gradient(var(--dot) 1px, transparent 1.5px) 0 0 / 24px 24px; }
 
-/* Tabs */
-nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-nav.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-nav.tabs a { flex: none; padding: 14px 12px 12px; font: 600 15px/1 var(--f-body); color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; }
-nav.tabs a:hover { color: var(--ink); }
-nav.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--rose); }
+/* ---------- Loader ---------- */
+#loader { position: fixed; inset: 0; z-index: 100; background: var(--ink); display: grid; place-items: center;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  clip-path: inset(0 0 0 0); transition: clip-path .9s var(--ease);
+  animation: ld-failsafe .3s 4.5s forwards; }
+#loader.out { clip-path: inset(0 0 100% 0); }
+@keyframes ld-failsafe { to { visibility: hidden; opacity: 0; } }
+.ld-word { font: 400 clamp(44px, 8vw, 84px)/1 var(--f-serif); font-style: italic; color: var(--paper); }
+.ld-word.swap { animation: ld-swap .32s var(--ease); }
+@keyframes ld-swap { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } }
+.ld-meta { position: absolute; left: max(20px, env(safe-area-inset-left, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); font: 500 12px/1 var(--f-mono); letter-spacing: .14em; color: var(--rose); }
+.ld-meta b { color: var(--paper); font-weight: 500; margin-left: 8px; font-variant-numeric: tabular-nums; }
+.ld-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); }
+.ld-bar i { display: block; height: 100%; background: var(--rose); transform-origin: left; transform: scaleX(0); }
 
-/* Pages */
-main { padding-block: 40px 72px; }
-section.page { display: grid; gap: 28px; }
-section.page + section.page { margin-top: 64px; }
-.js section.page + section.page { margin-top: 0; }
-h2 { font: 700 34px/1.1 var(--f-display); letter-spacing: -.01em; margin: 0; text-wrap: balance; }
-h3 { font: 700 21px/1.25 var(--f-display); margin: 0; text-wrap: balance; }
-p { margin: 0; max-width: 65ch; }
-.stack { display: grid; gap: 14px; }
-.label { font: 600 12px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+/* ---------- Progress + cursor ---------- */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 60; background: var(--rose); transform-origin: left; transform: scaleX(0); }
+#cursor { position: fixed; top: 0; left: 0; z-index: 90; pointer-events: none; opacity: 0; transition: opacity .3s; }
+#cursor.on { opacity: 1; }
+#cursor i { display: block; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1px solid var(--rose); border-radius: 50%; transition: transform .35s var(--ease), background .35s; }
+#cursor.big i { transform: scale(1.7); background: var(--rose-wash); }
 
-/* Timeline rows (experience / education) */
-.rows { display: grid; border-top: 1px solid var(--line); }
-.row { display: grid; grid-template-columns: 170px 1fr; gap: 6px 24px; padding-block: 18px; border-bottom: 1px solid var(--line); }
-.row > * { min-width: 0; }
-.when { font: 400 13px/1.7 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
-.row p { color: var(--muted); margin-top: 4px; }
+/* ---------- Nav ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 61; background: var(--ink); }
+.nav { position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 50; pointer-events: none; }
+.nav .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 14px; }
+.brand { pointer-events: auto; display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 14px; font-weight: 500; }
+.brand b { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--ink-2); font: 500 12px/1 var(--f-mono); letter-spacing: .04em; }
+.pill { pointer-events: auto; display: flex; align-items: center; gap: 2px; padding: 5px; border: 1px solid var(--line-2); border-radius: 999px; background: rgba(19, 17, 22, .72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.pill a { position: relative; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color .2s, background .2s; }
+.pill a:hover { color: var(--paper); background: var(--line); }
+.pill a.act { color: var(--paper); }
+.pill a.act::before { content: ""; position: absolute; left: 4px; top: 50%; width: 5px; height: 5px; margin-top: -2.5px; border-radius: 50%; background: var(--rose); }
+.kbd-btn { display: inline-flex; align-items: center; gap: 8px; margin-left: 4px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--card); color: var(--paper); font: 500 12px/1 var(--f-mono); cursor: pointer; }
+.kbd-btn:hover { border-color: var(--rose); }
+.kbd-btn .lbl-m { display: none; }
+
+/* ---------- Section rail ---------- */
+.rail { position: fixed; right: calc(14px + env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); z-index: 40; display: grid; gap: 4px; padding: 10px 6px; border: 1px solid var(--line); border-radius: 999px; background: rgba(19, 17, 22, .6); backdrop-filter: blur(10px); }
+.rail a { position: relative; display: grid; place-items: center; width: 18px; height: 18px; text-decoration: none; }
+.rail a i { width: 5px; height: 5px; border-radius: 50%; background: var(--dim); transition: transform .3s var(--ease), background .3s; }
+.rail a:hover i { background: var(--paper); }
+.rail a.act i { background: var(--rose); transform: scale(2); box-shadow: 0 0 0 3px var(--rose-wash); }
+.rail a span { position: absolute; right: 30px; white-space: nowrap; padding: 5px 9px; border-radius: 999px; border: 1px solid var(--rose); background: var(--ink-2); color: var(--rose-2); font: 500 10px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; opacity: 0; transform: translateX(6px); transition: opacity .25s, transform .25s; pointer-events: none; }
+.rail a.act span, .rail a:hover span { opacity: 1; transform: none; }
+
+/* ---------- Shared section bits ---------- */
+section { position: relative; scroll-margin-top: 70px; }
+.sec { padding-block: clamp(80px, 12vw, 150px); border-top: 1px solid var(--line); }
+.eyebrow { display: flex; align-items: center; gap: 12px; font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 26px; }
+.eyebrow .n { color: var(--rose); }
+.eyebrow .ln { width: 44px; height: 1px; background: var(--line-2); }
+.h2 { font: 600 clamp(40px, 6.4vw, 86px)/1 var(--f-sans); letter-spacing: -.035em; max-width: 16ch; }
+.h2 .s { font-size: 1.06em; }
+.lede { color: var(--muted); max-width: 58ch; margin-top: 22px; font-size: 18px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line-2); font: 500 12px/1 var(--f-mono); color: var(--muted); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font: 400 13px/1 var(--f-mono); padding: 7px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px; font: 600 15px/1 var(--f-sans); text-decoration: none; border: 1px solid transparent; transition: transform .25s var(--ease), background .25s, border-color .25s; cursor: pointer; }
+.btn:hover { transform: translateY(-2px); }
+.btn .ar { transition: transform .25s var(--ease); }
+.btn:hover .ar { transform: translateX(4px); }
+.btn.pri { background: var(--rose); color: var(--ink); }
+.btn.sec2 { border-color: var(--line-2); color: var(--paper); background: rgba(19, 17, 22, .6); }
+.btn.sec2:hover { border-color: var(--paper); }
+.btn.txt { padding-inline: 6px; color: var(--muted); }
+.btn.txt:hover { color: var(--paper); }
 
-/* bits & gloss feature */
-.feature { background: var(--rose-soft); border-radius: 18px; padding: 28px; display: grid; gap: 16px; }
-.feature h3 { font-size: 30px; }
-.feature .tag { font-style: italic; color: var(--ink); }
-.posts { display: grid; gap: 12px; }
-.post { display: grid; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; text-decoration: none; color: var(--ink); }
-.post:hover { border-color: var(--rose); }
-.post .t { font: 700 18px/1.3 var(--f-display); }
-.post .s { color: var(--muted); font-size: 15px; }
-.post .d { font: 400 12px/1 var(--f-mono); color: var(--rose); letter-spacing: .06em; text-transform: uppercase; }
-.btn { justify-self: start; display: inline-block; background: var(--rose); color: var(--surface); font-weight: 600; text-decoration: none; padding: 11px 18px; border-radius: 999px; }
-.hobbies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.hobby { border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; background: var(--surface); display: grid; gap: 4px; }
-.hobby .when { font-size: 12px; }
-
-/* Homelab */
-.spec { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.spec div { background: var(--surface); padding: 14px 16px; display: grid; gap: 4px; }
-.spec b { font: 600 15px/1.3 var(--f-mono); }
-.term { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-table.phases { width: 100%; min-width: 560px; border-collapse: collapse; font: 400 14px/1.5 var(--f-mono); }
-.phases caption { text-align: left; padding: 14px 16px 6px; color: var(--muted); font-size: 13px; }
-.phases th { text-align: left; font-weight: 600; font-size: 12px; letter-spacing: .08em; color: var(--muted); padding: 8px 16px; border-bottom: 1px solid var(--line); }
-.phases td { padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
-.phases tr:last-child td { border-bottom: 0; }
-.phases td:first-child { color: var(--muted); font-variant-numeric: tabular-nums; width: 3ch; }
-.pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
-.pill.done { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
-.pill.next { color: var(--steel); border-color: var(--steel); }
-ul.plain { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 65ch; }
-
-footer { border-top: 1px solid var(--line); padding-block: 24px 40px; color: var(--muted); font-size: 14px; }
-
-@media (max-width: 640px) {
-  .row { grid-template-columns: 1fr; }
-  .hobbies { grid-template-columns: 1fr; }
-  .spec { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .feature { padding: 20px; }
-  header.top { padding-block: 36px 20px; }
+/* ---------- Scroll-driven fade in / out ---------- */
+@keyframes fx-in { from { opacity: 0; translate: 0 56px; } to { opacity: 1; translate: 0 0; } }
+@keyframes fx-out { from { filter: opacity(1) blur(0); scale: 1; } to { filter: opacity(.08) blur(8px); scale: .96; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fx { animation: fx-in linear both, fx-out linear both; animation-timeline: view(), view(); animation-range: entry 0% entry 85%, exit 15% exit 100%; }
+    .fx-exit { animation: fx-out linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .js section.page:not([hidden]) { animation: rise .35s ease-out; }
-  @keyframes rise { from { transform: translateY(6px); } to { transform: none; } }
+.fx-io { opacity: 0; translate: 0 48px; transition: opacity .9s var(--ease), translate .9s var(--ease); }
+.fx-io.in { opacity: 1; translate: 0 0; }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: calc(130px + env(safe-area-inset-top, 0px)) 0; overflow: hidden; }
+.ghost-name { position: absolute; left: 50%; top: 92px; transform: translateX(-50%); z-index: -1; font: 700 clamp(120px, 26vw, 380px)/.8 var(--f-sans); letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px var(--line); white-space: nowrap; user-select: none; pointer-events: none; }
+.hero-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+.now { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 12px; border: 1px solid var(--line-2); border-radius: 999px; background: rgba(19, 17, 22, .7); font-size: 13px; color: var(--paper); }
+.now i { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 0 0 var(--rose); animation: ping 2.4s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255, 92, 138, .55); } 80%, 100% { box-shadow: 0 0 0 10px rgba(255, 92, 138, 0); } }
+.loc { font: 400 12px/1 var(--f-mono); letter-spacing: .08em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hero h1 { margin: clamp(40px, 7vw, 80px) 0 0; font: 700 clamp(64px, 13vw, 184px)/.86 var(--f-sans); letter-spacing: -.055em; }
+.rise { display: block; overflow: hidden; padding: 0 .06em .1em; margin: 0 -.06em -.1em; }
+.rise > span { display: inline-block; transition: transform 1.1s var(--ease) calc(var(--d, 0) * 110ms); }
+.hero h1 .s { display: block; font-size: 1.02em; line-height: .9; letter-spacing: -.01em; padding-left: clamp(40px, 12vw, 190px); }
+.js:not(.ready) .rise > span { transform: translateY(108%); }
+.hf { transition: opacity .9s var(--ease) calc(var(--d, 0) * 110ms), transform .9s var(--ease) calc(var(--d, 0) * 110ms); }
+.js:not(.ready) .hf { opacity: 0; transform: translateY(16px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; margin-top: clamp(32px, 5vw, 56px); }
+.role { font: 600 clamp(26px, 3.2vw, 40px)/1.1 var(--f-sans); letter-spacing: -.02em; }
+.role .s { font-size: 1.12em; }
+.hero-p { color: var(--muted); max-width: 46ch; margin-top: 16px; font-size: 18px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; align-items: center; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--line); gap: 1px; }
+.stat { background: rgba(19, 17, 22, .86); padding: 18px 20px; display: grid; gap: 4px; }
+.stat b { font: 600 clamp(34px, 3.6vw, 46px)/1 var(--f-sans); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.stat b em { font-style: normal; color: var(--rose); }
+.stat small { font: 500 11px/1.35 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.stamp { position: absolute; right: max(84px, calc(env(safe-area-inset-right, 0px) + 64px)); top: calc(300px + env(safe-area-inset-top, 0px)); width: 124px; height: 124px; display: grid; place-items: center; text-decoration: none; }
+.stamp svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 18s linear infinite; }
+.stamp text { fill: var(--muted); font: 500 9.6px var(--f-mono); letter-spacing: .14em; }
+.stamp-core { width: 52px; height: 52px; border-radius: 50%; background: var(--rose); color: var(--ink); display: grid; place-items: center; font-size: 20px; transition: transform .35s var(--ease); }
+.stamp:hover .stamp-core { transform: rotate(-45deg) scale(1.08); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.band { margin-top: clamp(56px, 8vw, 96px); border-block: 1px solid var(--line); overflow: hidden; background: rgba(19, 17, 22, .6); }
+.band-track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+.band:hover .band-track { animation-play-state: paused; }
+.band-track span { padding: 16px 0; font: 500 13px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.band-track span::after { content: "·"; margin: 0 18px; color: var(--rose); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- About (word scrub) ---------- */
+.scrub { font: 500 clamp(30px, 4.4vw, 58px)/1.14 var(--f-sans); letter-spacing: -.03em; max-width: 24ch; }
+.scrub .w { transition: opacity .15s linear; }
+.scrub .s { font-size: 1.08em; }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; margin-top: clamp(56px, 8vw, 96px); }
+.about-grid .tag { font: 500 12px/1.6 var(--f-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.about-grid .copy { display: grid; gap: 18px; color: var(--muted); max-width: 62ch; }
+.about-grid .copy strong { color: var(--paper); font-weight: 600; }
+
+/* ---------- What I do ---------- */
+.caps { margin-top: clamp(48px, 7vw, 84px); border-top: 1px solid var(--line); }
+.cap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px 48px; padding-block: 40px; border-bottom: 1px solid var(--line); }
+.cap-n { font: 700 clamp(84px, 13vw, 176px)/.8 var(--f-sans); letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1.5px var(--rose); transition: color .5s var(--ease); }
+.cap:hover .cap-n { color: var(--rose); }
+.cap h3 { font: 600 clamp(26px, 2.8vw, 34px)/1.1 var(--f-sans); letter-spacing: -.02em; margin-bottom: 12px; }
+.cap p { color: var(--muted); max-width: 52ch; margin-bottom: 18px; }
+
+/* ---------- Timeline ---------- */
+.tl { position: relative; display: grid; gap: clamp(36px, 6vw, 72px); margin-top: clamp(56px, 8vw, 96px); padding-block: 12px; }
+.tl-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--line); border-radius: 2px; }
+.tl-fill { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(var(--rose), var(--steel)); transform-origin: top; transform: scaleY(var(--p, 1)); box-shadow: 0 0 18px rgba(255, 92, 138, .35); }
+.tl-item { display: grid; grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); align-items: center; }
+.tl-item > * { min-width: 0; grid-row: 1; }
+.tl-card { grid-column: 1; }
+.tl-node { grid-column: 2; justify-self: center; position: relative; z-index: 1; width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--rose); background: var(--ink); transition: background .4s, box-shadow .4s; }
+.tl-node.on { background: var(--rose); box-shadow: 0 0 0 6px var(--rose-wash), 0 0 22px rgba(255, 92, 138, .6); }
+.tl-date { grid-column: 3; font: 500 13px/1.5 var(--f-mono); letter-spacing: .06em; color: var(--steel); }
+.tl-date .live { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; color: var(--rose); }
+.tl-date .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
+.tl-item.r .tl-card { grid-column: 3; }
+.tl-item.r .tl-date { grid-column: 1; text-align: right; }
+.tl-card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 26px 22px; transition: border-color .3s, transform .4s var(--ease); }
+.tl-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
+.tl-card h3 { font: 600 22px/1.2 var(--f-sans); letter-spacing: -.01em; }
+.tl-card .org { font: 500 14px/1.4 var(--f-mono); color: var(--rose); margin: 6px 0 16px; }
+.tl-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.tl-card li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.tl-card li::before { content: "▹"; position: absolute; left: 0; top: 0; color: var(--rose); }
+.more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .5s var(--ease); }
+.more > div { overflow: hidden; min-height: 0; }
+.more > div ul { padding-top: 10px; }
+.tl-card.open .more { grid-template-rows: 1fr; }
+.more-btn { margin-top: 16px; background: none; border: 0; padding: 0; color: var(--paper); font: 500 12px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; display: inline-flex; gap: 8px; align-items: center; }
+.more-btn i { font-style: normal; color: var(--rose); transition: transform .3s var(--ease); display: inline-block; }
+.tl-card.open .more-btn i { transform: rotate(45deg); }
+.tl-card .chips { margin-top: 18px; }
+
+/* ---------- Tech stack ---------- */
+.kin { margin-top: clamp(40px, 6vw, 72px); display: grid; gap: 6px; overflow: hidden; }
+.kin-row { display: flex; width: max-content; white-space: nowrap; will-change: transform; font: 600 clamp(44px, 7.4vw, 104px)/1.05 var(--f-sans); letter-spacing: -.04em; }
+.kin-row span::after { content: "·"; margin: 0 .3em; color: var(--rose); }
+.kin-row.alt { color: transparent; -webkit-text-stroke: 1px var(--line-2); }
+.kin-row.alt span::after { -webkit-text-stroke: 0; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: clamp(48px, 7vw, 80px) 0 40px; }
+.tf { padding: 9px 15px; border-radius: 999px; border: 1px solid var(--line-2); background: transparent; color: var(--muted); font: 500 12px/1 var(--f-mono); cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
+.tf:hover { color: var(--paper); border-color: var(--paper); }
+.tf[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.tf b { font-weight: 500; opacity: .55; margin-left: 4px; }
+.tgroups { display: grid; gap: 0; }
+.tgroup { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px 40px; padding-block: 32px; border-top: 1px solid var(--line); }
+.tgroup h3 { font: 700 clamp(26px, 2.8vw, 34px)/1 var(--f-sans); letter-spacing: -.02em; color: var(--rose); text-transform: uppercase; }
+.tgroup .cnt { display: block; margin-top: 10px; font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; align-content: start; }
+.tile { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 14px; font-weight: 500; transition: border-color .25s, transform .3s var(--ease), background .25s; }
+.tile:hover { border-color: var(--rose); transform: translateY(-2px); background: var(--card-2); }
+.badge { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; font: 600 11px/1 var(--f-mono); letter-spacing: -.02em; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+
+/* ---------- Work ---------- */
+.projects { display: grid; gap: 20px; margin-top: clamp(48px, 7vw, 84px); }
+.proj { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 48px; padding: clamp(24px, 4vw, 44px); border: 1px solid var(--line); border-radius: 26px; background: var(--card); overflow: hidden; transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s var(--ease), border-color .3s; }
+.proj::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s; background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgba(255, 92, 138, .11), transparent 60%); }
+.proj:hover { border-color: var(--line-2); }
+.proj:hover::before { opacity: 1; }
+.proj > * { position: relative; min-width: 0; }
+.proj .idx { font: 500 12px/1 var(--f-mono); letter-spacing: .14em; color: var(--rose); text-transform: uppercase; }
+.proj h3 { font: 600 clamp(34px, 4.4vw, 56px)/1 var(--f-sans); letter-spacing: -.035em; margin: 14px 0 14px; }
+.proj .sum { color: var(--paper); font-size: 18px; max-width: 44ch; }
+.proj ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.proj li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15px; }
+.proj li::before { content: "▹"; position: absolute; left: 0; color: var(--rose); }
+.proj .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.proj .chips { margin-top: 22px; }
+/* PassPhrase demo */
+.demo { align-self: stretch; display: grid; align-content: center; gap: 16px; padding: 26px; border-radius: 18px; border: 1px solid var(--line); background: var(--ink-2); }
+.demo .label { font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.pw { font: 500 clamp(20px, 2.6vw, 30px)/1.25 var(--f-mono); letter-spacing: .01em; word-break: break-all; min-height: 2.5em; color: var(--paper); }
+.pw .sym { color: var(--rose); }
+.pw .dig { color: var(--steel); }
+.demo-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.stars { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stars div { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); display: grid; gap: 4px; }
+.stars span { font: 500 11px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.stars b { color: var(--rose); letter-spacing: .12em; font-size: 15px; }
+.demo .note { font-size: 13px; color: var(--dim); }
+.copied { font: 500 12px/1 var(--f-mono); color: var(--ok); }
+/* Homelab terminal */
+.term { align-self: start; border: 1px solid var(--line); border-radius: 18px; background: var(--ink-2); overflow: hidden; }
+.term-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.term-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+.term-bar span { margin-left: 8px; font: 400 12px/1 var(--f-mono); color: var(--dim); }
+.term-body { padding: 18px 18px 8px; font: 400 13px/1.7 var(--f-mono); color: var(--muted); overflow-x: auto; }
+.term-body .pr { color: var(--rose); }
+.term-body .ok { color: var(--ok); }
+.phase { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 12px 18px; border-top: 1px solid var(--line); font: 400 13px/1.5 var(--f-mono); }
+.phase .pn { color: var(--rose); }
+.pill-s { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap; }
+.pill-s.done { background: var(--ok-wash); color: var(--ok); border-color: transparent; }
+.pill-s.next { color: var(--steel); border-color: var(--steel); }
+
+/* ---------- Writing ---------- */
+.write-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 40px 64px; margin-top: clamp(48px, 7vw, 84px); }
+.write-grid .copy { display: grid; gap: 18px; color: var(--muted); align-content: start; }
+.write-grid .copy strong { color: var(--paper); }
+.posts { display: grid; gap: 14px; }
+.post { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 20px; padding: 24px 26px; border-radius: 18px; border: 1px solid var(--line); background: var(--card); text-decoration: none; transition: border-color .3s, transform .4s var(--ease); }
+.post:hover { border-color: var(--rose); transform: translateY(-3px); }
+.post .d { grid-column: 1 / -1; font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--rose); }
+.post .t { font: 600 24px/1.15 var(--f-sans); letter-spacing: -.02em; }
+.post .ar { align-self: start; font-size: 22px; color: var(--muted); transition: transform .3s var(--ease), color .3s; }
+.post:hover .ar { transform: translate(3px, -3px); color: var(--rose); }
+.post .x { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+.hobbies { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
+.hobby { padding: 20px; border-radius: 16px; border: 1px solid var(--line); display: grid; gap: 6px; align-content: start; }
+.hobby .when { font: 500 11px/1 var(--f-mono); letter-spacing: .1em; color: var(--dim); }
+.hobby h3 { font: 600 19px/1.2 var(--f-sans); }
+.hobby p { color: var(--muted); font-size: 14px; }
+
+/* ---------- Education ---------- */
+.edu { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; margin-top: clamp(48px, 7vw, 84px); }
+.school { padding: clamp(24px, 4vw, 40px); border-radius: 24px; border: 1px solid var(--line); background: var(--card); }
+.school h3 { font: 600 clamp(30px, 3.6vw, 44px)/1 var(--f-sans); letter-spacing: -.03em; }
+.school .sub { color: var(--muted); margin-top: 10px; }
+.degree { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; padding-block: 18px; border-top: 1px solid var(--line); }
+.degree:first-of-type { margin-top: 26px; }
+.degree b { font-size: 18px; font-weight: 600; }
+.degree span { font: 500 13px/1.6 var(--f-mono); color: var(--steel); font-variant-numeric: tabular-nums; }
+.minors { padding-top: 18px; border-top: 1px solid var(--line); }
+.learn { display: grid; gap: 12px; align-content: start; }
+.learn > div { padding: 22px; border-radius: 18px; border: 1px solid var(--line); display: grid; gap: 6px; }
+.learn .when { font: 500 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--rose); }
+.learn h3 { font: 600 19px/1.25 var(--f-sans); }
+.learn p { color: var(--muted); font-size: 14px; }
+
+/* ---------- Contact + footer ---------- */
+.contact { text-align: center; }
+.contact .eyebrow { justify-content: center; }
+.contact h2 { font: 600 clamp(52px, 10vw, 140px)/.95 var(--f-sans); letter-spacing: -.05em; max-width: 12ch; margin: 0 auto; }
+.contact p { color: var(--muted); max-width: 46ch; margin: 26px auto 0; font-size: 18px; }
+.contact .cta { justify-content: center; margin-top: 34px; }
+footer { border-top: 1px solid var(--line); background: var(--ink-2); padding-block: 56px 0; overflow: hidden; }
+.foot { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 32px 48px; }
+.foot h4 { margin: 0 0 14px; font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.foot a { text-decoration: none; color: var(--muted); }
+.foot a:hover { color: var(--paper); }
+.foot .credit { color: var(--muted); font-size: 14px; max-width: 40ch; }
+.giant { margin-top: 56px; text-align: center; font: 700 clamp(72px, 19vw, 300px)/.78 var(--f-sans); letter-spacing: -.06em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px var(--line-2); user-select: none; margin-bottom: -.08em; }
+.giant .s { -webkit-text-stroke: 0; color: var(--rose); font-size: 1.04em; }
+
+/* ---------- Command palette ---------- */
+dialog#cmdk { width: min(560px, calc(100vw - 32px)); max-height: min(560px, 80vh); padding: 0; border: 1px solid var(--line-2); border-radius: 18px; background: var(--ink-2); color: var(--paper); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); margin-top: 12vh; }
+dialog#cmdk::backdrop { background: rgba(8, 7, 10, .62); backdrop-filter: blur(6px); }
+dialog#cmdk[open] { animation: pop .28s var(--ease); }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.98); } }
+.ck-in { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.ck-in span { color: var(--rose); font-family: var(--f-mono); }
+#cmdk-q { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--paper); font: 400 17px/1.4 var(--f-sans); }
+#cmdk-q::placeholder { color: var(--dim); }
+.ck-esc { font: 500 11px/1 var(--f-mono); color: var(--dim); border: 1px solid var(--line-2); padding: 4px 6px; border-radius: 6px; background: none; cursor: pointer; }
+.ck-list { list-style: none; margin: 0; padding: 8px; overflow-y: auto; max-height: calc(min(560px, 80vh) - 62px); }
+.ck-list .grp { padding: 10px 10px 6px; font: 500 10px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.ck-list a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 10px; text-decoration: none; font-size: 15px; color: var(--paper); }
+.ck-list a small { font: 400 12px/1 var(--f-mono); color: var(--dim); }
+.ck-list a.act { background: var(--rose-wash); }
+.ck-list a.act small { color: var(--rose-2); }
+.ck-empty { padding: 18px 12px; color: var(--dim); font-size: 14px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1279px) { .rail { display: none; } }
+@media (max-width: 960px) {
+  .pill a { display: none; }
+  .pill { padding: 4px; }
+  .kbd-btn { margin-left: 0; }
+  .kbd-btn .lbl-d { display: none; }
+  .kbd-btn .lbl-m { display: inline; }
+  .hero-grid, .about-grid, .cap, .proj, .write-grid, .edu, .tgroup { grid-template-columns: minmax(0, 1fr); }
+  .stamp { display: none; }
+  .hobbies { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .foot > :first-child { grid-column: 1 / -1; }
+  .cap { gap: 12px; }
+  .cap-n { font-size: 84px; }
+}
+@media (max-width: 720px) {
+  .tl-line { left: 9px; }
+  .tl-item, .tl-item.r { grid-template-columns: 20px minmax(0, 1fr); column-gap: 18px; row-gap: 10px; }
+  .tl-item .tl-node, .tl-item.r .tl-node { grid-column: 1; grid-row: 1; justify-self: start; margin-top: 3px; }
+  .tl-item .tl-date, .tl-item.r .tl-date { grid-column: 2; grid-row: 1; text-align: left; }
+  .tl-item .tl-card, .tl-item.r .tl-card { grid-column: 2; grid-row: 2; }
+  .tl-card { padding: 22px 20px 18px; }
+  .tl-date .live { margin-left: 8px; }
+  .hero h1 .s { padding-left: 0; }
+  .stars { grid-template-columns: minmax(0, 1fr); }
+  .phase { grid-template-columns: 28px minmax(0, 1fr); }
+  .phase .pill-s { grid-column: 2; justify-self: start; }
+  .post .t { font-size: 20px; }
+}
+@media (max-width: 460px) {
+  .hobbies { grid-template-columns: minmax(0, 1fr); }
+  .stats { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .stat { padding: 14px; }
+  .brand span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .band-track, .stamp svg, .now i { animation: none; }
+  .js:not(.ready) .rise > span, .js:not(.ready) .hf { transform: none; opacity: 1; }
+  .fx-io { opacity: 1; translate: none; transition: none; }
+  .proj { transform: none; }
 }
 </style>
 </head>
 <body>
 
-<header class="top"><div class="wrap">
-  <div class="eyebrow">Platform engineer · Los Angeles</div>
-  <h1>Alyson DelleDonne<span class="gloss">.</span></h1>
-  <p class="lede">I build container platforms for enterprises with OpenShift, automate everything I can, and write about AI in plain English.</p>
-  <div class="status" aria-label="Homelab status"><span>homelab</span><span>single-node OpenShift 4.22</span><span>bare metal</span><b>● running</b></div>
-  <div class="links">
-    <a href="https://github.com/alysondelledonne">GitHub</a>
-    <a href="https://bitsandgloss.substack.com/">bits &amp; gloss</a>
-    <a href="https://github.com/alysondelledonne/openshift-homelab">Homelab repo</a>
-  </div>
+<div class="bg" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"><i></i></div>
+
+<div id="loader" aria-hidden="true">
+  <div class="ld-word">hello</div>
+  <div class="ld-meta">LOADING<b id="ld-pct">0</b>%</div>
+  <div class="ld-bar"><i></i></div>
+</div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#intro"><b>AD</b><span>Alyson DelleDonne</span></a>
+  <nav class="pill" aria-label="Sections">
+    <a href="#about" data-s="about">About</a>
+    <a href="#experience" data-s="experience">Experience</a>
+    <a href="#stack" data-s="stack">Stack</a>
+    <a href="#work" data-s="work">Work</a>
+    <a href="#writing" data-s="writing">Writing</a>
+    <a href="#education" data-s="education">Education</a>
+    <button class="kbd-btn" id="cmdk-open" type="button" aria-haspopup="dialog"><span class="lbl-d">⌘K</span><span class="lbl-m">Menu</span></button>
+  </nav>
 </div></header>
 
-<nav class="tabs" aria-label="Sections"><div class="wrap">
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
-  <a href="#writing">Writing &amp; hobbies</a>
-  <a href="#homelab">Homelab</a>
-</div></nav>
+<nav class="rail" aria-label="Page sections" id="rail"></nav>
 
-<main><div class="wrap">
+<main>
 
-<section class="page" id="about">
-  <h2>About me</h2>
-  <div class="stack">
-    <p>I'm a consultant at Red Hat, where I help enterprises in automotive, financial services, and the nonprofit world build platforms on OpenShift, RHEL, Quay, and Ansible Automation Platform. Most of my days are hands-on: designing cluster networking and storage, setting up RBAC and compliance scanning, and automating the work so nobody has to do it by hand twice.</p>
-    <p>I like the whole arc of a project, from the first whiteboard session with a customer to the day their workloads run in production. Recently that has meant leading a mixed team of eight on a bank's OpenShift platform, which earned an internal Top Gun award, and moving a customer's virtual machines from VMware to OpenShift Virtualization.</p>
-    <p>Outside of client work I run an OpenShift cluster at home and write <a href="#writing">bits &amp; gloss</a>, a newsletter that explains how AI works without the jargon.</p>
-  </div>
-
-  <div class="stack">
-    <div class="label">Experience</div>
-    <div class="rows">
-      <div class="row"><div class="when">Aug 2022 – now</div><div><h3>Consultant, Red Hat</h3><p>Enterprise OpenShift delivery across 5+ engagements. Speaker at Red Hat's internal technical conference on automated cluster build pipelines and automated VM migration.</p></div></div>
-      <div class="row"><div class="when">Jun 2020 – Jul 2022</div><div><h3>ServiceNow Consultant &amp; HR Practice Lead, InSource</h3><p>Ran discovery workshops across 10+ client engagements and launched the company's ServiceNow HR practice from scratch, with a 4.8/5 customer satisfaction rating.</p></div></div>
+<!-- 01 INTRO -->
+<section id="intro" class="hero" data-label="Intro">
+  <div class="ghost-name" aria-hidden="true">DelleDonne</div>
+  <div class="wrap fx-exit">
+    <div class="hero-meta hf" style="--d:0">
+      <span class="now"><i></i>Now: Consultant at Red Hat</span>
+      <span class="loc">Los Angeles, CA · <span id="clock">Pacific time</span></span>
+    </div>
+    <h1><span class="rise"><span style="--d:1">Alyson</span></span><span class="rise s"><span style="--d:2">DelleDonne</span></span></h1>
+    <div class="hero-grid">
+      <div class="hf" style="--d:4">
+        <p class="role">Platform <span class="s">engineer</span> who ships OpenShift into the enterprise.</p>
+        <p class="hero-p">I design and build container platforms inside real customer environments, automate the work nobody should do twice, and write <strong>bits &amp; gloss</strong>, a Substack newsletter that explains complicated tech in a relatable way.</p>
+        <div class="cta">
+          <a class="btn pri" href="#work">View my work <span class="ar">→</span></a>
+          <a class="btn sec2" href="#experience">Experience</a>
+          <a class="btn txt" href="https://github.com/alysondelledonne">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="stats hf" style="--d:5" aria-label="At a glance">
+        <div class="stat"><b><span class="count" data-to="6">6</span><em>+</em></b><small>Years in enterprise delivery</small></div>
+        <div class="stat"><b><span class="count" data-to="15">15</span><em>+</em></b><small>Client engagements</small></div>
+        <div class="stat"><b><span class="count" data-to="5" data-dec="1">5</span></b><small>Ongoing personal projects</small></div>
+        <div class="stat"><b><span class="count" data-to="2">2</span></b><small>Enablement initiatives</small></div>
+      </div>
     </div>
   </div>
-
-  <div class="stack">
-    <div class="label">What I work with</div>
-    <div class="chips">
-      <span class="chip">OpenShift</span><span class="chip">Kubernetes</span><span class="chip">RHEL</span><span class="chip">Ansible</span><span class="chip">Python</span><span class="chip">Quay</span><span class="chip">OpenShift Virtualization</span><span class="chip">RBAC &amp; compliance</span><span class="chip">Claude Code</span>
+  <a class="stamp hf" style="--d:6" href="#about" aria-label="Scroll to About">
+    <svg viewBox="0 0 124 124" aria-hidden="true"><defs><path id="circ" d="M62,62 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs><text><textPath href="#circ" textLength="298">OPEN TO NEW ROLES • LET'S CREATE • </textPath></text></svg>
+    <span class="stamp-core" aria-hidden="true">↓</span>
+  </a>
+  <div class="band" aria-label="Technologies">
+    <div class="band-track">
+      <span>OpenShift</span><span>Kubernetes</span><span>RHEL</span><span>Ansible</span><span>Quay</span><span>OpenShift Virtualization</span><span>Python</span><span>Rust</span><span>WebAssembly</span><span>React</span><span>TypeScript</span><span>Java</span><span>Claude Code</span><span>Jenkins</span><span>NodeJS</span>
+      <span aria-hidden="true">OpenShift</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">RHEL</span><span aria-hidden="true">Ansible</span><span aria-hidden="true">Quay</span><span aria-hidden="true">OpenShift Virtualization</span><span aria-hidden="true">Python</span><span aria-hidden="true">Rust</span><span aria-hidden="true">WebAssembly</span><span aria-hidden="true">React</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Java</span><span aria-hidden="true">Claude Code</span><span aria-hidden="true">Jenkins</span><span aria-hidden="true">NodeJS</span>
     </div>
   </div>
 </section>
 
-<section class="page" id="education">
-  <h2>Education</h2>
-  <div class="rows">
-    <div class="row"><div class="when">2019 · 2020</div><div><h3>Villanova University</h3><p>B.S. Software Engineering (May 2019) and M.S. Software Engineering (May 2020), completed in an accelerated five-year program. Minors in Cognitive Science and International Relations.</p></div></div>
-    <div class="row"><div class="when">Q3 2026</div><div><h3>GenAI training program, Red Hat</h3><p>Prompt engineering and delivering generative AI solutions on Red Hat AI Platform.</p></div></div>
-    <div class="row"><div class="when">Aug 2026</div><div><h3>BASI Comprehensive Pilates certification</h3><p>Because learning doesn't have to involve a terminal.</p></div></div>
+<!-- 02 WHO I AM -->
+<section id="about" class="sec" data-label="Who I am"><div class="wrap">
+  <div class="eyebrow"><span class="n">02</span><span class="ln"></span>Who I am</div>
+  <h2 class="sr-only">Who I am</h2>
+  <p class="scrub" data-scrub>I'm Alyson, a platform engineer in Los Angeles. For six years I've turned enterprise requirements into systems people <span class="s">depend on</span>, from the discovery workshop to the day the workloads run in production.</p>
+  <div class="about-grid">
+    <div class="tag">(About me)</div>
+    <div class="copy fx">
+      <p>I'm a consultant at <strong>Red Hat</strong>. I help enterprises in automotive, financial services, and the nonprofit worlds build platforms on OpenShift, RHEL, Quay, and Ansible Automation Platform. The work is hands-on: cluster networking and storage, RBAC and compliance scanning, and automation that replaces manual administration.</p>
+      <p>Before Red Hat, I was a ServiceNow consultant at InSource, where I ran discovery workshops across more than ten client engagements and built the company's HR practice from scratch.</p>
+      <p>On my own time, I run an <strong>OpenShift cluster</strong> on a mini PC at home, built <strong>PassPhrase Pal</strong> in Rust and WebAssembly, and author <strong>bits &amp; gloss</strong>, a Substack newsletter that teaches readers about the tech world they scroll through, but might not yet understand. On weekends, I'm usually surfing, reading, and shopping the vintage market for curated finds.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 03 WHAT I DO -->
+<section id="services" class="sec" data-label="What I do"><div class="wrap">
+  <div class="eyebrow"><span class="n">03</span><span class="ln"></span>What I do</div>
+  <h2 class="h2 fx">Three ways I turn requirements into <span class="s">running systems</span>.</h2>
+  <div class="caps">
+    <div class="cap fx">
+      <div class="cap-n" aria-hidden="true">01</div>
+      <div>
+        <h3>Platform engineering</h3>
+        <p>I design and configure OpenShift platforms, including the networking and storage layers production workloads depend on. I set up RBAC and compliance scanning, and I'm moving a customer's virtual machines from VMware to OpenShift Virtualization.</p>
+        <div class="chips"><span class="chip">OpenShift</span><span class="chip">RHEL 8/9</span><span class="chip">Quay</span><span class="chip">OpenShift Virtualization</span></div>
+      </div>
+    </div>
+    <div class="cap fx">
+      <div class="cap-n" aria-hidden="true">02</div>
+      <div>
+        <h3>Automation</h3>
+        <p>I replace manual, error-prone administration with repeatable, version-controlled automation in Ansible, YAML, and Python. I've presented on automated cluster build pipelines and VM migration strategy at Red Hat's internal technical conference.</p>
+        <div class="chips"><span class="chip">Ansible AAP</span><span class="chip">Python</span><span class="chip">YAML</span><span class="chip">Git</span></div>
+      </div>
+    </div>
+    <div class="cap fx">
+      <div class="cap-n" aria-hidden="true">03</div>
+      <div>
+        <h3>Discovery to delivery</h3>
+        <p>I run workshops that turn business goals into scoped requirements, then own delivery through launch. That means negotiating scope and timelines and keeping everyone from engineers to executives aligned.</p>
+        <div class="chips"><span class="chip">Design workshops</span><span class="chip">Stakeholder management</span><span class="chip">Team leadership</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 EXPERIENCE -->
+<section id="experience" class="sec" data-label="Experience"><div class="wrap">
+  <div class="eyebrow"><span class="n">04</span><span class="ln"></span>Experience</div>
+  <h2 class="h2 fx">From discovery workshops to <span class="s">production</span>.</h2>
+  <div class="tl" id="tl">
+    <div class="tl-line" aria-hidden="true"><div class="tl-fill"></div></div>
+
+    <div class="tl-item">
+      <article class="tl-card fx">
+        <h3>VMware to OpenShift Virtualization</h3>
+        <div class="org">Red Hat · Client engagement</div>
+        <ul>
+          <li>Migrating a customer's production virtual machines from VMware to OpenShift Virtualization over a three-month engagement.</li>
+          <li>Consolidating VMs and containers on one platform the customer's teams can run themselves.</li>
+          <li>Escalating and coordinating support cases with Red Hat engineering when product issues block delivery.</li>
+        </ul>
+        <div class="chips"><span class="chip">OpenShift Virtualization</span><span class="chip">VMware</span></div>
+      </article>
+      <span class="tl-node" aria-hidden="true"></span>
+      <div class="tl-date">Summer 2026 – Now<span class="live">Now</span></div>
+    </div>
+
+    <div class="tl-item r">
+      <article class="tl-card fx">
+        <h3>Top Gun award</h3>
+        <div class="org">Red Hat · Global bank engagement</div>
+        <ul>
+          <li>Led a cross-organizational team of 8 (2 Red Hat, 6 client-side) delivering OpenShift infrastructure for a high-profile global bank.</li>
+          <li>Designed and configured the cluster networking and storage layers.</li>
+          <li>Recognized with Red Hat's internal Top Gun award for the engagement.</li>
+        </ul>
+      </article>
+      <span class="tl-node" aria-hidden="true"></span>
+      <div class="tl-date">Q1 2026</div>
+    </div>
+
+    <div class="tl-item">
+      <article class="tl-card fx">
+        <h3>Consultant</h3>
+        <div class="org">Red Hat · Remote</div>
+        <ul>
+          <li>Deliver hands-on implementation across 5+ enterprise engagements in automotive, nonprofit, and financial services.</li>
+          <li>Build infrastructure on OpenShift Container Platform, RHEL, Quay, and Ansible Automation Platform.</li>
+          <li>Configure role-based access control and run compliance scans so environments meet enterprise security requirements.</li>
+        </ul>
+        <div class="more"><div><ul>
+          <li>Automate infrastructure and application workflows with Ansible, YAML, and Python using configuration as code.</li>
+          <li>Lead technical design workshops that turn business objectives into scoped requirements and success criteria.</li>
+          <li>Presented at Red Hat's internal technical conference on automated cluster build pipelines and automated VM migration strategy.</li>
+          <li>Wrote internal blog posts on how OpenShift helped a nonprofit customer launch customer-facing products.</li>
+          <li>Use Claude Code to review and analyze production code, catching gaps and finding improvements.</li>
+        </ul></div></div>
+        <button class="more-btn" type="button" aria-expanded="false"><i>+</i><span>Show 5 more</span></button>
+      </article>
+      <span class="tl-node" aria-hidden="true"></span>
+      <div class="tl-date">Aug 2022 – Present</div>
+    </div>
+
+    <div class="tl-item r">
+      <article class="tl-card fx">
+        <h3>ServiceNow Consultant &amp; HR Practice Lead</h3>
+        <div class="org">InSource · Philadelphia, PA</div>
+        <ul>
+          <li>Ran discovery sessions and architecture workshops across 10+ client engagements.</li>
+          <li>Designed and launched the company's ServiceNow HR practice from scratch: service offering, implementation method, and go-to-market plan.</li>
+          <li>Kept a 4.8/5 customer satisfaction rating as a trusted advisor to technical and executive stakeholders.</li>
+        </ul>
+        <div class="more"><div><ul>
+          <li>Directed delivery teams to execute statements of work on time, re-planning scope as requirements shifted.</li>
+          <li>Built workflows, integrations, and platform configurations against real customer data and constraints.</li>
+        </ul></div></div>
+        <button class="more-btn" type="button" aria-expanded="false"><i>+</i><span>Show 2 more</span></button>
+      </article>
+      <span class="tl-node" aria-hidden="true"></span>
+      <div class="tl-date">Jun 2020 – Jul 2022</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 TECH STACK -->
+<section id="stack" class="sec" data-label="Tech stack">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">05</span><span class="ln"></span>Tech stack</div>
+    <h2 class="h2 fx">The tools I <span class="s">reach for</span>.</h2>
+    <p class="lede fx">Platform work during the day, Rust and the web on my own projects. Filter by category.</p>
+  </div>
+  <div class="kin" aria-hidden="true">
+    <div class="kin-row" data-dir="-1"></div>
+    <div class="kin-row alt" data-dir="1"></div>
+  </div>
+  <div class="wrap">
+    <div class="filters" role="group" aria-label="Filter technologies" id="filters"></div>
+    <div class="tgroups" id="tgroups"></div>
   </div>
 </section>
 
-<section class="page" id="writing">
-  <h2>Writing &amp; hobbies</h2>
-  <div class="feature">
-    <div class="eyebrow">Founder &amp; writer · since Sep 2026</div>
-    <h3>bits &amp; gloss</h3>
-    <p class="tag">Serious ideas in pretty packaging.</p>
-    <p>A weekly newsletter that explains how AI actually works, in plain English and without the gatekeeping. Each post spills the tea first, then shows the receipts.</p>
+<!-- 06 WORK -->
+<section id="work" class="sec" data-label="Selected work"><div class="wrap">
+  <div class="eyebrow"><span class="n">06</span><span class="ln"></span>Selected work</div>
+  <h2 class="h2 fx">Things I build on <span class="s">my own time</span>.</h2>
+  <div class="projects">
+
+    <article class="proj fx" data-tilt>
+      <div>
+        <div class="idx">_01 · Oct 2026 – Now</div>
+        <h3>PassPhrase Pal</h3>
+        <p class="sum">A website that makes memorable, unique passwords, with a Rust core compiled to WebAssembly.</p>
+        <ul>
+          <li>Every password is made in your browser with its cryptographic generator. Nothing is sent to a server or stored.</li>
+          <li>Counts every password that fits your rules and picks one uniformly, instead of guessing and retrying.</li>
+          <li>Property-based tests over thousands of random settings, plus 27 page tests.</li>
+          <li>GitHub Actions CI on macOS, Windows, and Linux, deployed to GitHub Pages.</li>
+        </ul>
+        <div class="chips"><span class="chip">Rust</span><span class="chip">WebAssembly</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">proptest</span><span class="chip">GitHub Actions</span></div>
+        <div class="links">
+          <a class="btn pri" href="https://alysondelledonne.github.io/password-manager/">Try it live <span class="ar">↗</span></a>
+          <a class="btn sec2" href="https://github.com/alysondelledonne/password-manager">Code</a>
+        </div>
+      </div>
+      <div class="demo" aria-live="polite">
+        <span class="label">Try a mini version</span>
+        <div class="pw" id="pw">Velvet7Harbor!Mint</div>
+        <div class="stars">
+          <div><span>Easy to remember</span><b id="st-mem">★★★★☆</b></div>
+          <div><span>Hard to guess</span><b id="st-gss">★★★☆☆</b></div>
+        </div>
+        <div class="demo-row">
+          <button class="btn pri" type="button" id="pw-gen">Generate</button>
+          <button class="btn sec2" type="button" id="pw-copy">Copy</button>
+          <span class="copied" id="pw-msg"></span>
+        </div>
+        <p class="note">This demo uses a short JavaScript word list. The real app runs its generator in Rust and rates passwords by measured entropy.</p>
+      </div>
+    </article>
+
+    <article class="proj fx" data-tilt>
+      <div>
+        <div class="idx">_02 · Oct 2026 – Now</div>
+        <h3>OpenShift Homelab</h3>
+        <p class="sum">A bare-metal, single-node OpenShift 4.22 cluster on a mini PC on my desk, documented in public.</p>
+        <ul>
+          <li>Installed with the Assisted Installer on a Beelink mini PC with an Intel Core i5 and 16 GB of memory.</li>
+          <li>DNS on my own domain points to a private address, so the console and API are reachable only at home.</li>
+          <li>The repo holds install and network notes, design decisions, a troubleshooting log, and Bash scripts for DNS and cluster health checks.</li>
+        </ul>
+        <div class="chips"><span class="chip">OpenShift 4.22</span><span class="chip">Assisted Installer</span><span class="chip">Cloudflare DNS</span><span class="chip">Bash</span></div>
+        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/openshift-homelab">View the repo <span class="ar">↗</span></a></div>
+      </div>
+      <div class="term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/openshift-homelab</span></div>
+        <div class="term-body"><span class="pr">$</span> oc get clusterversion<br>VERSION&nbsp;&nbsp;AVAILABLE&nbsp;&nbsp;STATUS<br>4.22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">True</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cluster is available</div>
+        <div class="phase"><span class="pn">_01</span><span>Bare-metal install, DNS, health checks</span><span class="pill-s done">done · Oct 2026</span></div>
+        <div class="phase"><span class="pn">_02</span><span>GitOps with Argo CD and Ansible</span><span class="pill-s next">up next</span></div>
+        <div class="phase"><span class="pn">_03</span><span>Identity, RBAC, network policies</span><span class="pill-s">planned</span></div>
+        <div class="phase"><span class="pn">_04</span><span>Storage, compliance scanning, OpenShift Virtualization</span><span class="pill-s">planned</span></div>
+        <div class="phase"><span class="pn">_05</span><span>Rebuild the cluster from Git and time it</span><span class="pill-s">planned</span></div>
+      </div>
+    </article>
+
+  </div>
+</div></section>
+
+<!-- 07 WRITING -->
+<section id="writing" class="sec" data-label="Writing"><div class="wrap">
+  <div class="eyebrow"><span class="n">07</span><span class="ln"></span>Writing &amp; life</div>
+  <h2 class="h2 fx">Serious ideas in <span class="s">pretty packaging</span>.</h2>
+  <div class="write-grid">
+    <div class="copy fx">
+      <p>I started <strong>bits &amp; gloss</strong> in September 2026. It's a weekly newsletter that explains how AI actually works, in plain English and without the gatekeeping.</p>
+      <p>Every post spills the tea first, then shows the receipts.</p>
+      <div class="cta"><a class="btn pri" href="https://bitsandgloss.substack.com/">Read bits &amp; gloss <span class="ar">↗</span></a></div>
+    </div>
     <div class="posts">
-      <a class="post" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually">
-        <span class="d">Oct 6, 2026 · Part I</span>
-        <span class="t">Spilling the Tea on How AI Actually Works</span>
-        <span class="s">Tokens, embeddings, and attention: what really happens after you hit Enter.</span>
-      </a>
-      <a class="post" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually-5fe">
-        <span class="d">Oct 12, 2026 · Part II</span>
-        <span class="t">Spilling the Tea on How AI Actually Works: Part II</span>
-        <span class="s">How AI learns, why it hallucinates so confidently, and how to get better answers.</span>
-      </a>
-    </div>
-    <a class="btn" href="https://bitsandgloss.substack.com/">Read bits &amp; gloss</a>
-  </div>
-
-  <div class="stack">
-    <div class="label">Off the clock</div>
-    <div class="hobbies">
-      <div class="hobby"><span class="when">2023 – now</span><h3>Coxswain</h3><p>Steering and calling the race for my rowing club.</p></div>
-      <div class="hobby"><span class="when">Aug 2026 – now</span><h3>Pilates instructor</h3><p>BASI Comprehensive certified.</p></div>
-      <div class="hobby"><span class="when">Sep 2024 – now</span><h3>Pickleball group</h3><p>Co-founder and organizer of a community group.</p></div>
-      <div class="hobby"><span class="when">May 2023 – now</span><h3>The Nook Book Club</h3><p>Co-founder and organizer.</p></div>
+      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually"><span class="d">Oct 6, 2026 · Part I</span><span class="t">Spilling the Tea on How AI Actually Works</span><span class="ar" aria-hidden="true">↗</span><span class="x">Tokens, embeddings, and attention: what happens after you hit Enter.</span></a>
+      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually-5fe"><span class="d">Oct 12, 2026 · Part II</span><span class="t">How AI learns, and why it makes things up</span><span class="ar" aria-hidden="true">↗</span><span class="x">Training, hallucinations, memory, and five habits for getting better answers.</span></a>
     </div>
   </div>
-</section>
-
-<section class="page" id="homelab">
-  <h2>OpenShift homelab</h2>
-  <p>I wanted a cluster I fully own, where I can break things, fix them, and write down what happened. It runs on a mini PC on my desk, and everything I learn goes into a public repo.</p>
-  <div class="spec">
-    <div><span class="label">Platform</span><b>OpenShift 4.22</b></div>
-    <div><span class="label">Topology</span><b>Single node</b></div>
-    <div><span class="label">Hardware</span><b>8 cores / 16 GB</b></div>
-    <div><span class="label">Installer</span><b>Assisted</b></div>
+  <div class="hobbies">
+    <div class="hobby fx"><span class="when">2023 – NOW</span><h3>Coxswain</h3><p>Steering and calling the race for my rowing club.</p></div>
+    <div class="hobby fx"><span class="when">2026 – NOW</span><h3>Pilates instructor</h3><p>BASI Comprehensive certified.</p></div>
+    <div class="hobby fx"><span class="when">2024 – NOW</span><h3>Pickleball</h3><p>Co-founder and organizer of a community group.</p></div>
+    <div class="hobby fx"><span class="when">2023 – NOW</span><h3>The Nook Book Club</h3><p>Co-founder and organizer.</p></div>
   </div>
+</div></section>
 
-  <div class="term">
-    <table class="phases">
-      <caption>Build phases, in order. Only finished work is marked done.</caption>
-      <thead><tr><th>#</th><th>PHASE</th><th>STATUS</th></tr></thead>
-      <tbody>
-        <tr><td>1</td><td>Bare-metal install with the Assisted Installer, DNS on a custom domain, health checks</td><td><span class="pill done">done · Oct 2026</span></td></tr>
-        <tr><td>2</td><td>Manage the cluster through GitOps (Argo CD) and Ansible</td><td><span class="pill next">up next</span></td></tr>
-        <tr><td>3</td><td>RBAC, identity, and network policies</td><td><span class="pill">planned</span></td></tr>
-        <tr><td>4</td><td>Persistent storage, compliance scanning, OpenShift Virtualization</td><td><span class="pill">planned</span></td></tr>
-        <tr><td>5</td><td>Rebuild the whole cluster from Git and time it</td><td><span class="pill">planned</span></td></tr>
-      </tbody>
-    </table>
+<!-- 08 EDUCATION -->
+<section id="education" class="sec" data-label="Education"><div class="wrap">
+  <div class="eyebrow"><span class="n">08</span><span class="ln"></span>Education</div>
+  <h2 class="h2 fx">Where the <span class="s">engineering</span> started.</h2>
+  <div class="edu">
+    <div class="school fx">
+      <h3>Villanova University</h3>
+      <p class="sub">Accelerated five-year bachelor's and master's program</p>
+      <div class="degree"><b>M.S. Software Engineering</b><span>May 2020</span></div>
+      <div class="degree"><b>B.S. Software Engineering</b><span>May 2019</span></div>
+      <div class="minors"><div class="chips"><span class="chip">Minor · Cognitive Science</span><span class="chip">Minor · International Relations</span></div></div>
+    </div>
+    <div class="learn">
+      <div class="fx"><span class="when">Q3 2026</span><h3>GenAI training program, Red Hat</h3><p>Prompt engineering and delivering generative AI solutions on Red Hat AI Platform.</p></div>
+      <div class="fx"><span class="when">Aug 2026</span><h3>BASI Comprehensive Pilates certification</h3><p>Not every certification involves a terminal.</p></div>
+    </div>
   </div>
+</div></section>
 
-  <div class="stack">
-    <div class="label">In the repo</div>
-    <ul class="plain">
-      <li>Install notes and the design decisions behind them</li>
-      <li>A troubleshooting log of the 9 issues I hit during install, each with cause and fix</li>
-      <li>Scripts for DNS checks and cluster health checks</li>
-    </ul>
-    <a class="btn" href="https://github.com/alysondelledonne/openshift-homelab">View on GitHub</a>
+<!-- 09 CONTACT -->
+<section id="contact" class="sec contact" data-label="Let's talk"><div class="wrap">
+  <div class="eyebrow"><span class="n">09</span><span class="ln"></span>Let's talk</div>
+  <h2 class="fx">Let's build something <span class="s">reliable</span>.</h2>
+  <p class="fx">I'm open to platform, solutions, and forward-deployed engineering roles, especially in applied AI. The best way to see how I work is in my repos.</p>
+  <div class="cta fx">
+    <a class="btn pri" href="https://github.com/alysondelledonne">Find me on GitHub <span class="ar">↗</span></a>
+    <a class="btn sec2" href="https://bitsandgloss.substack.com/">Subscribe to bits &amp; gloss</a>
   </div>
-</section>
+</div></section>
 
-</div></main>
+</main>
 
-<footer><div class="wrap">© 2026 Alyson DelleDonne · Built with care and a little help from Claude.</div></footer>
+<footer><div class="wrap">
+  <div class="foot">
+    <div>
+      <h4>About this site</h4>
+      <p class="credit">Designed and built by Alyson DelleDonne with AI-assisted development. Hosted on GitHub Pages.</p>
+    </div>
+    <div>
+      <h4>Built with</h4>
+      <ul>
+        <li>CSS scroll-driven animations</li>
+        <li>View Transitions API</li>
+        <li>CSS grid and custom properties</li>
+        <li>SVG text on a path</li>
+        <li>The native &lt;dialog&gt; element</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="https://github.com/alysondelledonne">GitHub ↗</a></li>
+        <li><a href="https://bitsandgloss.substack.com/">bits &amp; gloss ↗</a></li>
+        <li><a href="https://github.com/alysondelledonne/openshift-homelab">Homelab repo ↗</a></li>
+        <li>Press <span class="mono">⌘K</span> to jump anywhere</li>
+      </ul>
+    </div>
+  </div>
+  <div class="giant" aria-hidden="true">Alyson<span class="s">.</span></div>
+</div></footer>
+
+<dialog id="cmdk" aria-label="Jump to">
+  <div class="ck-in"><span aria-hidden="true">›</span><input id="cmdk-q" type="text" placeholder="Jump to a section or link…" autocomplete="off" spellcheck="false" aria-label="Search sections and links"><button class="ck-esc" type="button" id="cmdk-close">ESC</button></div>
+  <ul class="ck-list" id="cmdk-list" role="listbox"></ul>
+</dialog>
 
 <script>
 (function () {
-  document.documentElement.classList.add('js');
-  var pages = Array.prototype.slice.call(document.querySelectorAll('section.page'));
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav.tabs a'));
-  function show(id, scroll) {
-    if (!pages.some(function (p) { return p.id === id; })) id = 'about';
-    pages.forEach(function (p) { p.hidden = p.id !== id; });
-    tabs.forEach(function (a) {
-      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'page');
-      else a.removeAttribute('aria-current');
-    });
-    if (scroll) { var nav = document.querySelector('nav.tabs'); window.scrollTo({ top: nav.offsetTop, behavior: 'auto' }); }
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(pointer: fine)').matches;
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  /* ---------- Loader ---------- */
+  var isReady = false;
+  function ready() { if (isReady) return; isReady = true; root.classList.add('ready'); countUp(); }
+  var loader = $('#loader');
+  var seen = false;
+  try { seen = sessionStorage.getItem('ad-seen') === '1'; sessionStorage.setItem('ad-seen', '1'); } catch (e) {}
+  if (!loader || seen || reduce) { if (loader) loader.remove(); requestAnimationFrame(ready); }
+  else {
+    var words = ['hello', 'ciao', 'hola', 'bonjour', 'hey there', 'Alyson.'];
+    var w = $('.ld-word', loader), pct = $('#ld-pct'), bar = $('.ld-bar i', loader);
+    var t0 = performance.now(), dur = 2200, wi = 0;
+    var swap = setInterval(function () {
+      wi++; if (wi >= words.length) return;
+      w.textContent = words[wi]; w.classList.remove('swap'); void w.offsetWidth; w.classList.add('swap');
+    }, dur / words.length);
+    (function tick(now) {
+      var p = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - p, 3);
+      pct.textContent = Math.round(e * 100); bar.style.transform = 'scaleX(' + e + ')';
+      if (p < 1) requestAnimationFrame(tick);
+      else { clearInterval(swap); w.textContent = words[words.length - 1];
+        setTimeout(function () { loader.classList.add('out'); ready(); setTimeout(function () { loader.remove(); }, 1000); }, 280); }
+    })(t0);
   }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    e.preventDefault();
-    var id = a.getAttribute('href').slice(1);
-    try { history.replaceState(null, '', '#' + id); } catch (err) {}
-    show(id, true);
+  setTimeout(ready, 3800);
+
+  /* ---------- Clock ---------- */
+  var clock = $('#clock');
+  try {
+    var fmt = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
+    var tickClock = function () { clock.textContent = fmt.format(new Date()); };
+    tickClock(); setInterval(tickClock, 15000);
+  } catch (e) {}
+
+  /* ---------- Count-up stats ---------- */
+  function countUp() {
+    if (reduce) return;
+    $$('.count').forEach(function (el) {
+      var to = parseFloat(el.dataset.to), dec = +(el.dataset.dec || 0), t = performance.now();
+      (function f(now) {
+        var p = clamp((now - t) / 1400, 0, 1), e = 1 - Math.pow(1 - p, 4);
+        el.textContent = (to * e).toFixed(dec);
+        if (p < 1) requestAnimationFrame(f); else el.textContent = to.toFixed(dec);
+      })(t);
+    });
+  }
+
+  /* ---------- Cursor ring + background glow ---------- */
+  if (fine && !reduce) {
+    var cur = $('#cursor'), mx = innerWidth / 2, my = innerHeight / 3, cx = mx, cy = my;
+    addEventListener('pointermove', function (e) {
+      mx = e.clientX; my = e.clientY; cur.classList.add('on');
+      root.style.setProperty('--mx', mx + 'px'); root.style.setProperty('--my', my + 'px');
+    }, { passive: true });
+    document.addEventListener('pointerover', function (e) { cur.classList.toggle('big', !!e.target.closest('a, button, .tile, [data-tilt]')); });
+    document.addEventListener('pointerleave', function () { cur.classList.remove('on'); });
+    (function loop() { cx += (mx - cx) * .2; cy += (my - cy) * .2; cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)'; requestAnimationFrame(loop); })();
+  }
+
+  /* ---------- Section rail + nav state ---------- */
+  var sections = $$('main > section');
+  var rail = $('#rail');
+  sections.forEach(function (s, i) {
+    var a = document.createElement('a');
+    a.href = '#' + s.id;
+    a.innerHTML = '<i></i><span>' + String(i + 1).padStart(2, '0') + ' ' + s.dataset.label + '</span>';
+    a.setAttribute('aria-label', s.dataset.label);
+    rail.appendChild(a);
   });
-  window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });
-  show(location.hash.slice(1), false);
+  var railLinks = $$('a', rail), navLinks = $$('.pill a[data-s]');
+
+  /* ---------- Word scrub ---------- */
+  var scrubEls = $$('[data-scrub]').map(function (el) {
+    var out = [];
+    (function walk(node, parent) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(t)); return; }
+            var sp = document.createElement('span'); sp.className = 'w'; sp.textContent = t; frag.appendChild(sp); out.push(sp);
+          });
+          n.parentNode.replaceChild(frag, n);
+        } else if (n.nodeType === 1) walk(n);
+      });
+    })(el);
+    return { el: el, words: out, last: [] };
+  });
+
+  /* ---------- Timeline ---------- */
+  var tl = $('#tl'), fill = $('.tl-fill', tl), nodes = $$('.tl-node', tl);
+  $$('.more-btn').forEach(function (b) {
+    var lbl = b.querySelector('span'), orig = lbl.textContent;
+    b.addEventListener('click', function () {
+      var card = b.closest('.tl-card'), open = card.classList.toggle('open');
+      b.setAttribute('aria-expanded', String(open)); lbl.textContent = open ? 'Show less' : orig;
+    });
+  });
+
+  /* ---------- Kinetic marquee rows ---------- */
+  var kinWords = [['OpenShift', 'Kubernetes', 'Ansible', 'RHEL', 'Quay', 'Python', 'Rust'], ['WebAssembly', 'React', 'TypeScript', 'GitHub Actions', 'YAML', 'Bash', 'Git']];
+  var kins = $$('.kin-row').map(function (row, i) {
+    var html = kinWords[i].map(function (t) { return '<span>' + t + '</span>'; }).join('');
+    row.innerHTML = html + html + html + html;
+    return { row: row, dir: +row.dataset.dir, x: 0, w: 0 };
+  });
+  function measureKin() { kins.forEach(function (k) { k.w = k.row.scrollWidth / 4; if (k.dir > 0) k.x = -k.w; }); }
+
+  /* ---------- One frame loop for scroll-linked work ---------- */
+  var bar = $('.progress'), lastY = scrollY, vel = 0;
+  function frame() {
+    var y = scrollY, vh = innerHeight, max = document.documentElement.scrollHeight - vh;
+    bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    vel += (Math.abs(y - lastY) - vel) * .12; lastY = y;
+
+    var act = sections[0];
+    sections.forEach(function (s) { if (s.getBoundingClientRect().top <= vh * .42) act = s; });
+    railLinks.forEach(function (a) { a.classList.toggle('act', a.hash === '#' + act.id); });
+    navLinks.forEach(function (a) { a.classList.toggle('act', a.dataset.s === act.id); });
+
+    if (!reduce) {
+      scrubEls.forEach(function (s) {
+        var r = s.el.getBoundingClientRect();
+        var p = clamp((vh * .88 - r.top) / (r.height + vh * .38), 0, 1), n = s.words.length;
+        s.words.forEach(function (w, i) {
+          var o = Math.round((0.16 + 0.84 * clamp(p * n * 1.12 - i, 0, 1)) * 100) / 100;
+          if (s.last[i] !== o) { w.style.opacity = o; s.last[i] = o; }
+        });
+      });
+      var tr = tl.getBoundingClientRect();
+      var tp = clamp((vh * .6 - tr.top) / tr.height, 0, 1);
+      fill.style.setProperty('--p', tp.toFixed(4));
+      nodes.forEach(function (n) { n.classList.toggle('on', n.getBoundingClientRect().top < vh * .6); });
+      kins.forEach(function (k) {
+        if (!k.w) return;
+        k.x += k.dir * (0.55 + Math.min(vel, 60) * 0.35);
+        if (k.x <= -k.w * 2) k.x += k.w; if (k.x >= 0) k.x -= k.w;
+        k.row.style.transform = 'translate3d(' + k.x + 'px,0,0) skewX(' + (-k.dir * Math.min(vel, 40) * .18) + 'deg)';
+      });
+    }
+    requestAnimationFrame(frame);
+  }
+  if (reduce) { nodes.forEach(function (n) { n.classList.add('on'); }); }
+  requestAnimationFrame(function () { measureKin(); frame(); });
+  addEventListener('resize', measureKin);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureKin);
+
+  /* ---------- Fade fallback when scroll-driven animations are unsupported ---------- */
+  if (!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()')) && !reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    $$('.fx').forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add('fx-io'); io.observe(el); } });
+  }
+
+  /* ---------- Tech stack ---------- */
+  var STACK = [
+    { id: 'platform', name: 'Platform & cloud', items: [['OpenShift', 'OS', '#EE0000', '#fff'], ['Kubernetes', 'K8s', '#326CE5', '#fff'], ['RHEL 8/9', 'RH', '#B80000', '#fff'], ['Quay', 'Qy', '#40B4E5', '#06202c'], ['OpenShift Virtualization', 'VM', '#8F1D23', '#fff'], ['Linux', 'Lx', '#FCC624', '#1a1a1a'], ['Cloudflare DNS', 'CF', '#F38020', '#fff']] },
+    { id: 'automation', name: 'Automation & CI/CD', items: [['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Bash', '$_', '#4EAA25', '#fff'], ['Git', 'Git', '#F05032', '#fff'], ['GitHub Actions', 'GA', '#2088FF', '#fff']] },
+    { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['TypeScript', 'TS', '#3178C6', '#fff'], ['JavaScript', 'JS', '#F7DF1E', '#111'], ['Java', 'Jv', '#E76F00', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['PHP', 'php', '#777BB4', '#fff'], ['HTML', '</>', '#E34F26', '#fff'], ['CSS', '{}', '#663399', '#fff']] },
+    { id: 'web', name: 'Web & testing', items: [['React', 'Re', '#61DAFB', '#06202c'], ['Vite', 'Vi', '#646CFF', '#fff'], ['WebAssembly', 'WA', '#654FF0', '#fff'], ['Vitest', 'Vt', '#6E9F18', '#fff'], ['proptest', 'pt', '#3a2a24', '#fff'], ['GitHub Pages', 'GP', '#24292F', '#fff']] },
+    { id: 'tools', name: 'AI & tools', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e'], ['ServiceNow', 'SN', '#62D84E', '#0c1a10'], ['Jira', 'Ji', '#0052CC', '#fff'], ['Confluence', 'Cf', '#1868DB', '#fff'], ['Miro', 'Mi', '#FFD02F', '#111']] }
+  ];
+  var filtersEl = $('#filters'), groupsEl = $('#tgroups');
+  var total = STACK.reduce(function (n, g) { return n + g.items.length; }, 0);
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  filtersEl.innerHTML = '<button class="tf" type="button" data-cat="all" aria-pressed="true">All<b>' + total + '</b></button>' +
+    STACK.map(function (g) { return '<button class="tf" type="button" data-cat="' + g.id + '" aria-pressed="false">' + g.name + '<b>' + g.items.length + '</b></button>'; }).join('');
+  groupsEl.innerHTML = STACK.map(function (g, i) {
+    return '<div class="tgroup" data-cat="' + g.id + '" style="view-transition-name:tg-' + i + '"><div><h3>' + esc(g.name) + '</h3><span class="cnt">' + g.items.length + ' technologies</span></div><div class="tiles">' +
+      g.items.map(function (t) { return '<div class="tile"><span class="badge" style="background:' + t[2] + ';color:' + t[3] + '">' + esc(t[1]) + '</span>' + esc(t[0]) + '</div>'; }).join('') + '</div></div>';
+  }).join('');
+  var tfs = $$('.tf', filtersEl), groups = $$('.tgroup', groupsEl);
+  tfs.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var cat = b.dataset.cat;
+      var apply = function () {
+        tfs.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        groups.forEach(function (g) { g.hidden = cat !== 'all' && g.dataset.cat !== cat; });
+      };
+      if (document.startViewTransition && !reduce) document.startViewTransition(apply); else apply();
+    });
+  });
+
+  /* ---------- Project cards: spotlight + tilt ---------- */
+  if (fine && !reduce) {
+    $$('[data-tilt]').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--x', (x * 100) + '%'); card.style.setProperty('--y', (y * 100) + '%');
+        card.style.setProperty('--ry', ((x - .5) * 3) + 'deg'); card.style.setProperty('--rx', ((.5 - y) * 3) + 'deg');
+      });
+      card.addEventListener('pointerleave', function () { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
+  /* ---------- PassPhrase mini demo ---------- */
+  var WORDS = ['velvet', 'harbor', 'mint', 'orbit', 'maple', 'cedar', 'pixel', 'tulip', 'comet', 'satin', 'river', 'lumen', 'fern', 'coral', 'echo', 'plume', 'quartz', 'amber', 'willow', 'sparrow', 'honey', 'nimbus', 'pearl', 'lotus', 'meadow', 'cobalt', 'ember', 'iris', 'marble', 'saffron', 'glacier', 'peony'];
+  var SYM = '!@#$%&*?';
+  function rnd(n) {
+    var lim = Math.floor(4294967296 / n) * n, a = new Uint32Array(1);
+    do { crypto.getRandomValues(a); } while (a[0] >= lim);
+    return a[0] % n;
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  var pwEl = $('#pw'), memEl = $('#st-mem'), gssEl = $('#st-gss'), msg = $('#pw-msg'), current = pwEl.textContent;
+  function stars(n) { return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }
+  function paint(s) { return s.replace(/[&<>]/g, '').replace(/(\d)/g, '<span class="dig">$1</span>').replace(/([!@#$%&*?])/g, '<span class="sym">$1</span>'); }
+  function generate() {
+    var n = 2 + rnd(2), parts = [];
+    for (var i = 0; i < n; i++) {
+      parts.push(cap(WORDS[rnd(WORDS.length)]));
+      if (i < n - 1) parts.push(i % 2 ? SYM[rnd(SYM.length)] : String(rnd(10)));
+    }
+    if (n === 2) parts.push(SYM[rnd(SYM.length)]);
+    var out = parts.join('');
+    var bits = n * Math.log2(WORDS.length) + Math.log2(10) + Math.log2(SYM.length);
+    var guess = clamp(Math.round(bits / 6), 1, 5), mem = n === 2 ? 5 : 4;
+    current = out; msg.textContent = '';
+    memEl.textContent = stars(mem); gssEl.textContent = stars(guess);
+    if (reduce) { pwEl.innerHTML = paint(out); return; }
+    var chars = 'ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz0123456789!@#$%&*?', t = performance.now();
+    (function scr(now) {
+      var p = clamp((now - t) / 520, 0, 1), k = Math.floor(p * out.length), s = out.slice(0, k);
+      for (var j = k; j < out.length; j++) s += chars[Math.floor(Math.random() * chars.length)];
+      pwEl.innerHTML = p < 1 ? s.replace(/[&<>]/g, '') : paint(out);
+      if (p < 1) requestAnimationFrame(scr);
+    })(t);
+  }
+  pwEl.innerHTML = paint(current);
+  $('#pw-gen').addEventListener('click', generate);
+  $('#pw-copy').addEventListener('click', function () {
+    var done = function () { msg.textContent = 'Copied'; };
+    try {
+      navigator.clipboard.writeText(current).then(done, function () { selectPw(); msg.textContent = 'Press ⌘C to copy'; });
+    } catch (e) { selectPw(); msg.textContent = 'Press ⌘C to copy'; }
+  });
+  function selectPw() { var r = document.createRange(); r.selectNodeContents(pwEl); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  /* ---------- Command palette ---------- */
+  var dlg = $('#cmdk'), q = $('#cmdk-q'), list = $('#cmdk-list'), active = 0, items = [];
+  var CMDS = sections.map(function (s, i) { return { g: 'Sections', t: s.dataset.label, k: String(i + 1).padStart(2, '0'), href: '#' + s.id }; }).concat([
+    { g: 'Links', t: 'PassPhrase Pal (live)', k: '↗', href: 'https://alysondelledonne.github.io/password-manager/', ext: 1 },
+    { g: 'Links', t: 'OpenShift homelab repo', k: '↗', href: 'https://github.com/alysondelledonne/openshift-homelab', ext: 1 },
+    { g: 'Links', t: 'bits & gloss on Substack', k: '↗', href: 'https://bitsandgloss.substack.com/', ext: 1 },
+    { g: 'Links', t: 'GitHub profile', k: '↗', href: 'https://github.com/alysondelledonne', ext: 1 }
+  ]);
+  function render() {
+    var term = q.value.trim().toLowerCase(), html = '', g = '';
+    items = CMDS.filter(function (c) { return !term || c.t.toLowerCase().indexOf(term) > -1 || c.g.toLowerCase().indexOf(term) > -1; });
+    active = clamp(active, 0, Math.max(0, items.length - 1));
+    items.forEach(function (c, i) {
+      if (c.g !== g) { g = c.g; html += '<li class="grp" role="presentation">' + g + '</li>'; }
+      html += '<li role="option"><a href="' + c.href + '" data-i="' + i + '"' + (c.ext ? ' target="_blank" rel="noopener"' : '') + (i === active ? ' class="act"' : '') + '>' + esc(c.t) + '<small>' + c.k + '</small></a></li>';
+    });
+    list.innerHTML = html || '<li class="ck-empty">No matches. Try "work" or "github".</li>';
+  }
+  function openK() { if (dlg.open) return; q.value = ''; active = 0; render(); try { dlg.showModal(); } catch (e) { dlg.setAttribute('open', ''); } q.focus(); }
+  function closeK() { if (dlg.open) dlg.close(); }
+  $('#cmdk-open').addEventListener('click', openK);
+  $('#cmdk-close').addEventListener('click', closeK);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) closeK(); });
+  q.addEventListener('input', function () { active = 0; render(); });
+  q.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); active = clamp(active + (e.key === 'ArrowDown' ? 1 : -1), 0, items.length - 1); render(); var a = $('a.act', list); if (a) a.scrollIntoView({ block: 'nearest' }); }
+    else if (e.key === 'Enter') { e.preventDefault(); var t = $('a.act', list); if (t) t.click(); }
+  });
+  list.addEventListener('click', function (e) { var a = e.target.closest('a'); if (a && a.getAttribute('href').charAt(0) === '#') { closeK(); } else if (a) { setTimeout(closeK, 0); } });
+  document.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? closeK() : openK(); }
+  });
 })();
 </script>
 
