@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Alyson DelleDonne</title>
-<meta name="description" content="Alyson DelleDonne is a platform engineer and Red Hat consultant who builds OpenShift platforms, automates infrastructure, and writes bits & gloss.">
+<meta name="description" content="Alyson DelleDonne is a forward-deployed platform engineer at Red Hat who embeds with enterprise customers, ships OpenShift platforms to production, and brings AI into how delivery gets done.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
@@ -206,6 +206,7 @@ section { position: relative; scroll-margin-top: 70px; }
 .tl-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
 .tl-card h3 { font: 600 22px/1.2 var(--f-sans); letter-spacing: -.01em; }
 .tl-card .org { font: 500 14px/1.4 var(--f-mono); color: var(--rose); margin: 6px 0 16px; }
+.tl-lead { color: var(--paper); font-size: 15px; line-height: 1.6; margin: -4px 0 16px; padding-left: 14px; border-left: 2px solid var(--rose); }
 .tl-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
 .tl-card li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15px; line-height: 1.55; }
 .tl-card li::before { content: "▹"; position: absolute; left: 0; top: 0; color: var(--rose); }
@@ -279,6 +280,56 @@ section { position: relative; scroll-margin-top: 70px; }
 .pill-s { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap; }
 .pill-s.done { background: var(--ok-wash); color: var(--ok); border-color: transparent; }
 .pill-s.next { color: var(--steel); border-color: var(--steel); }
+
+
+/* Slack approval mock */
+.slack { align-self: start; display: grid; gap: 14px; padding: 20px; border-radius: 18px; border: 1px solid var(--line); background: var(--ink-2); }
+.sk-head { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.sk-av { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--rose); color: var(--ink); font: 600 12px/1 var(--f-mono); }
+.sk-app { font: 600 10px/1 var(--f-mono); padding: 3px 5px; border-radius: 4px; background: var(--line-2); color: var(--muted); }
+.sk-time { margin-left: auto; font: 400 12px/1 var(--f-mono); color: var(--dim); }
+.sk-msg { font-size: 14px; color: var(--paper); line-height: 1.5; }
+.sk-msg span { color: var(--muted); font-style: italic; }
+.sk-cands { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.sk-c { display: grid; gap: 8px; padding: 8px; border-radius: 12px; border: 1px solid var(--line); transition: opacity .3s, border-color .3s; }
+.sk-c.ok { border-color: var(--ok); }
+.sk-c.no { opacity: .4; }
+.sk-img { aspect-ratio: 4 / 3; max-width: 100%; border-radius: 8px; position: relative; overflow: hidden;
+  background: radial-gradient(circle at 70% 25%, rgba(255, 214, 160, .9), transparent 45%), linear-gradient(160deg, #6b4a2e, #2a1c14); }
+.sk-img::after { content: ""; position: absolute; left: 34%; bottom: 18%; width: 30%; height: 34%; border-radius: 6px 6px 12px 12px; background: #8fa889; box-shadow: inset -6px 0 0 rgba(0, 0, 0, .15); }
+.sk-img.alt { background: radial-gradient(circle at 25% 20%, rgba(255, 236, 200, .85), transparent 50%), linear-gradient(200deg, #d9cbb4, #8a7358); }
+.sk-img.alt::after { left: 44%; width: 26%; }
+.sk-img.busy { animation: shimmer 1s linear infinite; }
+@keyframes shimmer { 50% { filter: brightness(.55) saturate(.4); } }
+.sk-st { font: 500 11px/1.2 var(--f-mono); letter-spacing: .06em; color: var(--muted); }
+.sk-c.ok .sk-st { color: var(--ok); }
+.sk-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.sk-btns button { flex: 1 1 auto; padding: 7px 8px; border-radius: 6px; border: 1px solid var(--line-2); background: var(--card); color: var(--paper); font: 600 12px/1 var(--f-sans); cursor: pointer; }
+.sk-btns button[data-a="approve"] { background: #1f7a4d; border-color: transparent; color: #fff; }
+.sk-btns button:disabled { opacity: .45; cursor: default; }
+.sk-foot { font: 400 12px/1.4 var(--f-mono); color: var(--muted); }
+.slack .note, .private-note { font-size: 13px; color: var(--dim); }
+.private-note { margin-top: 22px; }
+@media (max-width: 460px) { .sk-cands { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* Private-repo flag + reconciliation mock */
+.flag { display: inline-block; margin-top: 12px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--steel); color: var(--steel); font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
+.recon { align-self: start; display: grid; gap: 14px; }
+.rc-flow { display: flex; flex-wrap: wrap; gap: 6px; }
+.rc-flow span { position: relative; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-2); font: 500 11px/1 var(--f-mono); color: var(--muted); }
+.rc-flow span.on { border-color: var(--rose); color: var(--rose-2); background: var(--rose-wash); }
+.rc-card { display: grid; gap: 0; padding: 18px; border-radius: 18px; border: 1px solid var(--line); background: var(--ink-2); }
+.rc-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; }
+.rc-pill { font: 500 11px/1 var(--f-mono); padding: 5px 9px; border-radius: 999px; background: rgba(255, 196, 92, .14); color: #ffc45c; white-space: nowrap; }
+.rc-pill.ok { background: var(--ok-wash); color: var(--ok); }
+.rc-row { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 2px 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.rc-row .k { font: 500 11px/1.6 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); grid-row: span 2; }
+.rc-row .v { font-weight: 600; }
+.rc-row .src { font: 400 12px/1.4 var(--f-mono); color: var(--steel); }
+.rc-row.conflict .src { color: #ffc45c; }
+.rc-why { font-size: 13px; color: var(--muted); padding: 10px 0 14px; border-top: 1px solid var(--line); }
+.recon .note { font-size: 13px; color: var(--dim); }
 
 /* ---------- Writing ---------- */
 .write-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 40px 64px; margin-top: clamp(48px, 7vw, 84px); }
@@ -433,8 +484,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <h1><span class="rise"><span style="--d:1">Alyson</span></span><span class="rise s"><span style="--d:2">DelleDonne</span></span></h1>
     <div class="hero-grid">
       <div class="hf" style="--d:4">
-        <p class="role">Platform <span class="s">engineer</span> who ships OpenShift into the enterprise.</p>
-        <p class="hero-p">I design and build container platforms inside real customer environments, automate the work nobody should do twice, and write <strong>bits &amp; gloss</strong>, a Substack newsletter that explains complicated tech in a relatable way.</p>
+        <p class="role">Forward-deployed <span class="s">engineer</span> for platforms and AI-driven delivery.</p>
+        <p class="hero-p">I embed with enterprise customers to design, build, and ship platforms into their real environments, with their real data and constraints. I use AI throughout my delivery work, and I write <strong>bits &amp; gloss</strong>, a Substack newsletter that explains complicated tech in a relatable way.</p>
         <div class="cta">
           <a class="btn pri" href="#work">View my work <span class="ar">→</span></a>
           <a class="btn sec2" href="#experience">Experience</a>
@@ -444,19 +495,19 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
       <div class="stats hf" style="--d:5" aria-label="At a glance">
         <div class="stat"><b><span class="count" data-to="6">6</span><em>+</em></b><small>Years in enterprise delivery</small></div>
         <div class="stat"><b><span class="count" data-to="15">15</span><em>+</em></b><small>Client engagements</small></div>
-        <div class="stat"><b><span class="count" data-to="5" data-dec="1">5</span></b><small>Ongoing personal projects</small></div>
+        <div class="stat"><b><span class="count" data-to="5">5</span></b><small>Ongoing personal projects</small></div>
         <div class="stat"><b><span class="count" data-to="2">2</span></b><small>Enablement initiatives</small></div>
       </div>
     </div>
   </div>
   <a class="stamp hf" style="--d:6" href="#about" aria-label="Scroll to About">
-    <svg viewBox="0 0 124 124" aria-hidden="true"><defs><path id="circ" d="M62,62 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs><text><textPath href="#circ" textLength="298">OPEN TO NEW ROLES • LET'S CREATE • </textPath></text></svg>
+    <svg viewBox="0 0 124 124" aria-hidden="true"><defs><path id="circ" d="M62,62 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs><text><textPath href="#circ" textLength="298">OPEN TO FDE ROLES • LET'S CREATE • </textPath></text></svg>
     <span class="stamp-core" aria-hidden="true">↓</span>
   </a>
   <div class="band" aria-label="Technologies">
     <div class="band-track">
-      <span>OpenShift</span><span>Kubernetes</span><span>RHEL</span><span>Ansible</span><span>Quay</span><span>OpenShift Virtualization</span><span>Python</span><span>Rust</span><span>WebAssembly</span><span>React</span><span>TypeScript</span><span>Java</span><span>Claude Code</span><span>Jenkins</span><span>NodeJS</span>
-      <span aria-hidden="true">OpenShift</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">RHEL</span><span aria-hidden="true">Ansible</span><span aria-hidden="true">Quay</span><span aria-hidden="true">OpenShift Virtualization</span><span aria-hidden="true">Python</span><span aria-hidden="true">Rust</span><span aria-hidden="true">WebAssembly</span><span aria-hidden="true">React</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Java</span><span aria-hidden="true">Claude Code</span><span aria-hidden="true">Jenkins</span><span aria-hidden="true">NodeJS</span>
+      <span>OpenShift</span><span>Kubernetes</span><span>RHEL</span><span>Ansible</span><span>Quay</span><span>OpenShift Virtualization</span><span>Python</span><span>Rust</span><span>WebAssembly</span><span>React</span><span>TypeScript</span><span>Java</span><span>Claude Code</span><span>Jenkins</span><span>NodeJS</span><span>FastAPI</span><span>Anthropic API</span><span>Streamlit</span><span>Luma AI</span>
+      <span aria-hidden="true">OpenShift</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">RHEL</span><span aria-hidden="true">Ansible</span><span aria-hidden="true">Quay</span><span aria-hidden="true">OpenShift Virtualization</span><span aria-hidden="true">Python</span><span aria-hidden="true">Rust</span><span aria-hidden="true">WebAssembly</span><span aria-hidden="true">React</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Java</span><span aria-hidden="true">Claude Code</span><span aria-hidden="true">Jenkins</span><span aria-hidden="true">NodeJS</span><span aria-hidden="true">FastAPI</span><span aria-hidden="true">Anthropic API</span><span aria-hidden="true">Streamlit</span><span aria-hidden="true">Luma AI</span>
     </div>
   </div>
 </section>
@@ -465,13 +516,14 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 <section id="about" class="sec" data-label="Who I am"><div class="wrap">
   <div class="eyebrow"><span class="n">02</span><span class="ln"></span>Who I am</div>
   <h2 class="sr-only">Who I am</h2>
-  <p class="scrub" data-scrub>I'm Alyson, a platform engineer in Los Angeles. For six years I've turned enterprise requirements into systems people <span class="s">depend on</span>, from the discovery workshop to the day the workloads run in production.</p>
+  <p class="scrub" data-scrub>I'm Alyson, a forward-deployed engineer at heart. For six years I've worked inside customer environments, turning enterprise requirements into systems people <span class="s">depend on</span>. Now I'm bringing AI into how that work gets delivered.</p>
   <div class="about-grid">
     <div class="tag">(About me)</div>
     <div class="copy fx">
       <p>I'm a consultant at <strong>Red Hat</strong>. I help enterprises in automotive, financial services, and the nonprofit worlds build platforms on OpenShift, RHEL, Quay, and Ansible Automation Platform. The work is hands-on: cluster networking and storage, RBAC and compliance scanning, and automation that replaces manual administration.</p>
       <p>Before Red Hat, I was a ServiceNow consultant at InSource, where I ran discovery workshops across more than ten client engagements and built the company's HR practice from scratch.</p>
-      <p>On my own time, I run an <strong>OpenShift cluster</strong> on a mini PC at home, built <strong>PassPhrase Pal</strong> in Rust and WebAssembly, and author <strong>bits &amp; gloss</strong>, a Substack newsletter that teaches readers about the tech world they scroll through, but might not yet understand. On weekends, I'm usually surfing, reading, and shopping the vintage market for curated finds.</p>
+      <p>I'm passionate about <strong>AI-driven delivery</strong>. At Red Hat, I use Claude Code to review and analyze production code, catching gaps and finding improvements, and I completed Red Hat's GenAI training in prompt engineering and delivering generative AI on Red Hat AI Platform. I've built a pipeline that uses Claude to turn piles of messy business files into clean, reviewable records, and an AI image pipeline that I deployed end to end.</p>
+      <p>On my own time, I run an <strong>OpenShift cluster</strong> on a mini PC at home, build projects with <strong>AI-assisted development</strong>, and author <strong>bits &amp; gloss</strong>, a Substack newsletter that teaches readers about the tech world they scroll through, but might not yet understand. On weekends, I'm usually surfing, reading, and shopping the vintage market for curated finds.</p>
     </div>
   </div>
 </div></section>
@@ -479,7 +531,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 <!-- 03 WHAT I DO -->
 <section id="services" class="sec" data-label="What I do"><div class="wrap">
   <div class="eyebrow"><span class="n">03</span><span class="ln"></span>What I do</div>
-  <h2 class="h2 fx">Three ways I turn requirements into <span class="s">running systems</span>.</h2>
+  <h2 class="h2 fx">Four ways I turn requirements into <span class="s">running systems</span>.</h2>
   <div class="caps">
     <div class="cap fx">
       <div class="cap-n" aria-hidden="true">01</div>
@@ -500,9 +552,17 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div class="cap fx">
       <div class="cap-n" aria-hidden="true">03</div>
       <div>
-        <h3>Discovery to delivery</h3>
-        <p>I run workshops that turn business goals into scoped requirements, then own delivery through launch. That means negotiating scope and timelines and keeping everyone from engineers to executives aligned.</p>
-        <div class="chips"><span class="chip">Design workshops</span><span class="chip">Stakeholder management</span><span class="chip">Team leadership</span></div>
+        <h3>AI-driven delivery</h3>
+        <p>I use AI to deliver faster and catch more. Claude Code helps me review and analyze production code, I've trained in prompt engineering and GenAI delivery on Red Hat AI Platform, and I build my own projects with AI-assisted development, reviewing every change myself. I've also built AI pipelines on the Anthropic API, with structured outputs, confidence scores, and evals.</p>
+        <div class="chips"><span class="chip">Claude Code</span><span class="chip">Anthropic API</span><span class="chip">Structured outputs</span><span class="chip">Evals</span><span class="chip">Prompt engineering</span><span class="chip">Red Hat AI Platform</span></div>
+      </div>
+    </div>
+    <div class="cap fx">
+      <div class="cap-n" aria-hidden="true">04</div>
+      <div>
+        <h3>Embedded with customers</h3>
+        <p>I work inside the customer's environment, not from a spec. I run discovery, scope what matters, own delivery through production, and carry what I learn in the field back to engineering as support cases and reusable patterns.</p>
+        <div class="chips"><span class="chip">Discovery workshops</span><span class="chip">End-to-end ownership</span><span class="chip">Field feedback</span><span class="chip">Stakeholder management</span></div>
       </div>
     </div>
   </div>
@@ -533,12 +593,15 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div class="tl-item r">
       <article class="tl-card fx">
         <h3>Top Gun award</h3>
-        <div class="org">Red Hat · Global bank engagement</div>
+        <div class="org">Red Hat · Financial services client</div>
+        <p class="tl-lead">Working side by side with a financial services client, I took ownership of an OpenShift administration and automation project in a high-stakes environment and drove it to a result the client could build on. Their confidence in the platform, and in the team, helped lead to approval of a multi-million-dollar deal.</p>
         <ul>
-          <li>Led a cross-organizational team of 8 (2 Red Hat, 6 client-side) delivering OpenShift infrastructure for a high-profile global bank.</li>
-          <li>Designed and configured the cluster networking and storage layers.</li>
-          <li>Recognized with Red Hat's internal Top Gun award for the engagement.</li>
+          <li>Independently drove the project from discovery to delivery, owning the outcome end to end instead of handing off a plan.</li>
+          <li>Led a cross-organizational team of 8 (2 Red Hat, 6 client-side), keeping engineers and stakeholders aligned on one plan.</li>
+          <li>Turned manual OpenShift administration into automated, repeatable workflows the client's team could run themselves.</li>
+          <li>Recognized with Red Hat's internal Top Gun award for leadership and impact on the engagement.</li>
         </ul>
+        <div class="chips"><span class="chip">OpenShift</span><span class="chip">Automation</span><span class="chip">Team leadership</span><span class="chip">Client trust</span></div>
       </article>
       <span class="tl-node" aria-hidden="true"></span>
       <div class="tl-date">Q1 2026</div>
@@ -592,7 +655,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   <div class="wrap">
     <div class="eyebrow"><span class="n">05</span><span class="ln"></span>Tech stack</div>
     <h2 class="h2 fx">The tools I <span class="s">reach for</span>.</h2>
-    <p class="lede fx">Platform work during the day, Rust and the web on my own projects. Filter by category.</p>
+    <p class="lede fx">Platform work during the day, AI-Assisted project delivery in my own time. Filter by category.</p>
   </div>
   <div class="kin" aria-hidden="true">
     <div class="kin-row" data-dir="-1"></div>
@@ -645,7 +708,64 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <article class="proj fx" data-tilt>
       <div>
-        <div class="idx">_02 · Oct 2026 – Now</div>
+        <div class="idx">_02 · Oct 2026</div>
+        <h3>Messy Data Reconciliation Pipeline</h3>
+        <p class="sum">Give it a target schema and a pile of messy files. It returns one clean, deduplicated table where every value traces back to its source, and it flags what needs a person's review.</p>
+        <ul>
+          <li>Ingests spreadsheets, PDFs and scans, emails, Word documents, notes, and JSONL logs, keeping each record's exact source location.</li>
+          <li>Claude extracts records with structured outputs, returning a confidence score and quoted evidence for every field. Hard documents escalate from Haiku to Opus, and every call is cached and costed.</li>
+          <li>Rules and confidence decide what's approved automatically and what needs review, with a reason for each flag. Fuzzy matching with a lookalike-name guard reconciles organizations across sources.</li>
+          <li>A Streamlit review app lets a person approve or correct records, with a full audit trail in Postgres.</li>
+          <li>An eval harness scores every stage against generated ground truth, and GitHub Actions fails the build if a score drops below baseline.</li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">Anthropic API</span><span class="chip">Pydantic</span><span class="chip">PostgreSQL</span><span class="chip">SQLAlchemy</span><span class="chip">rapidfuzz</span><span class="chip">Streamlit</span><span class="chip">Docker</span></div>
+        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/messy-data-reconciliation-pipeline">View the repo <span class="ar">↗</span></a></div>
+      </div>
+      <div class="recon" id="recon">
+        <div class="rc-flow" aria-label="Pipeline stages"><span>Ingest</span><span>Extract</span><span>Validate</span><span>Reconcile</span><span class="on">Review</span></div>
+        <div class="rc-card">
+          <div class="rc-top"><b>Invoice INV-2207</b><span class="rc-pill" id="rc-pill">Needs review</span></div>
+          <div class="rc-row"><span class="k">Vendor</span><span class="v">Northwind Supply Co.</span><span class="src">vendor_invoice.pdf · p1 · 0.97</span></div>
+          <div class="rc-row"><span class="k">Total</span><span class="v">$1,234.50</span><span class="src">ap_register.csv · row 88 · 0.99</span></div>
+          <div class="rc-row conflict"><span class="k">Status</span><span class="v" id="rc-status">Paid</span><span class="src">crm_export.csv says Paid · aging.xlsx says Open</span></div>
+          <p class="rc-why" id="rc-why">Reason: two sources disagree on payment status.</p>
+          <div class="demo-row"><button class="btn pri" type="button" data-v="Paid">Keep Paid</button><button class="btn sec2" type="button" data-v="Open">Use Open</button></div>
+        </div>
+        <p class="note">An illustration of the review queue with made-up data. The real app shows the source file beside the merged record.</p>
+      </div>
+    </article>
+
+    <article class="proj fx" data-tilt>
+      <div>
+        <div class="idx">_03 · Sep 2026</div>
+        <span class="flag">Private repo</span>
+        <h3>Shot Idea Orchestrator</h3>
+        <p class="sum">An AI pipeline that turns a small brand's shot ideas into approved product photos, without asking the team to open a new app.</p>
+        <ul>
+          <li>A shot idea typed into the team's Google Sheet, or sent with a Slack command, starts a request. Edits settle in Postgres for 30 seconds before anything is generated.</li>
+          <li>Claude expands the idea into a detailed prompt, then an image-generation model creates two candidates from the product's own catalog photo, queued through Redis and RQ.</li>
+          <li>The approver picks Approve, Regenerate, or Reject from a Slack card on her phone. Approved images land in Google Drive, and the founder gets a "ready to publish" message.</li>
+          <li>Budget guardrails cap spend per request and per month, and a /report command shows live spend and coverage.</li>
+          <li>Deployed on Railway, with 40 pytest tests passing against a real Postgres 16 database.</li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Anthropic API</span><span class="chip">Image generation API</span><span class="chip">PostgreSQL</span><span class="chip">Redis + RQ</span><span class="chip">Slack API</span><span class="chip">Google Sheets</span></div>
+        <p class="private-note">The code lives in a private repo. I'm happy to walk through it, and the decisions behind it, on request.</p>
+      </div>
+      <div class="slack" id="slack">
+        <div class="sk-head"><span class="sk-av" aria-hidden="true">SI</span><b>Shot Idea Bot</b><span class="sk-app">APP</span><span class="sk-time">9:41 AM</span></div>
+        <p class="sk-msg">New candidates for <b>Stoneware mug</b><br><span>Shot idea: "cozy windowsill, late afternoon light"</span></p>
+        <div class="sk-cands">
+          <div class="sk-c" data-c="1"><div class="sk-img" aria-hidden="true"></div><span class="sk-st">Candidate 1</span><div class="sk-btns"><button type="button" data-a="approve">Approve</button><button type="button" data-a="regen">Regenerate</button><button type="button" data-a="reject">Reject</button></div></div>
+          <div class="sk-c" data-c="2"><div class="sk-img alt" aria-hidden="true"></div><span class="sk-st">Candidate 2</span><div class="sk-btns"><button type="button" data-a="approve">Approve</button><button type="button" data-a="regen">Regenerate</button><button type="button" data-a="reject">Reject</button></div></div>
+        </div>
+        <p class="sk-foot"><span id="sk-spend">Spend this request: 2 of 5 images</span></p>
+        <p class="note">An illustration of the approval card. Nothing is generated here.</p>
+      </div>
+    </article>
+
+    <article class="proj fx" data-tilt>
+      <div>
+        <div class="idx">_04 · Oct 2026 – Now</div>
         <h3>OpenShift Homelab</h3>
         <p class="sum">A bare-metal, single-node OpenShift 4.22 cluster on a mini PC on my desk, documented in public.</p>
         <ul>
@@ -716,7 +836,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 <section id="contact" class="sec contact" data-label="Let's talk"><div class="wrap">
   <div class="eyebrow"><span class="n">09</span><span class="ln"></span>Let's talk</div>
   <h2 class="fx">Let's build something <span class="s">reliable</span>.</h2>
-  <p class="fx">I'm open to platform, solutions, and forward-deployed engineering roles, especially in applied AI. The best way to see how I work is in my repos.</p>
+  <p class="fx">I'm looking for forward-deployed engineering roles where I can embed with customers, ship to production, and bring AI into how the work gets done. The best way to see how I work is in my repos.</p>
   <div class="cta fx">
     <a class="btn pri" href="https://github.com/alysondelledonne">Find me on GitHub <span class="ar">↗</span></a>
     <a class="btn sec2" href="https://bitsandgloss.substack.com/">Subscribe to bits &amp; gloss</a>
@@ -925,9 +1045,12 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   /* ---------- Tech stack ---------- */
   var STACK = [
     { id: 'platform', name: 'Platform & cloud', items: [['OpenShift', 'OS', '#EE0000', '#fff'], ['Kubernetes', 'K8s', '#326CE5', '#fff'], ['RHEL 8/9', 'RH', '#B80000', '#fff'], ['Quay', 'Qy', '#40B4E5', '#06202c'], ['OpenShift Virtualization', 'VM', '#8F1D23', '#fff'], ['Linux', 'Lx', '#FCC624', '#1a1a1a'], ['Cloudflare DNS', 'CF', '#F38020', '#fff']] },
-    { id: 'automation', name: 'Automation & CI/CD', items: [['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Bash', '$_', '#4EAA25', '#fff'], ['Git', 'Git', '#F05032', '#fff'], ['GitHub Actions', 'GA', '#2088FF', '#fff']] },
-    { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['TypeScript', 'TS', '#3178C6', '#fff'], ['JavaScript', 'JS', '#F7DF1E', '#111'], ['Java', 'Jv', '#E76F00', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['PHP', 'php', '#777BB4', '#fff'], ['HTML', '</>', '#E34F26', '#fff'], ['CSS', '{}', '#663399', '#fff']] },
-    { id: 'web', name: 'Web & testing', items: [['React', 'Re', '#61DAFB', '#06202c'], ['Vite', 'Vi', '#646CFF', '#fff'], ['WebAssembly', 'WA', '#654FF0', '#fff'], ['Vitest', 'Vt', '#6E9F18', '#fff'], ['proptest', 'pt', '#3a2a24', '#fff'], ['GitHub Pages', 'GP', '#24292F', '#fff']] },
+    { id: 'ai', name: 'AI & integrations', items: [['Anthropic API (Claude)', 'An', '#CC785C', '#fff'], ['Structured outputs', 'SO', '#8A5A44', '#fff'], ['Luma AI API', 'Lu', '#2B2B30', '#fff'], ['Slack API', 'Sl', '#4A154B', '#fff'], ['Google Sheets API', 'GS', '#0F9D58', '#fff'], ['Google Drive API', 'GD', '#1A73E8', '#fff'], ['Google Apps Script', 'AS', '#F4B400', '#1a1a1a']] },
+    { id: 'backend', name: 'Backend & data', items: [['FastAPI', 'Fa', '#009688', '#fff'], ['Pydantic', 'Pd', '#E92063', '#fff'], ['PostgreSQL', 'Pg', '#4169E1', '#fff'], ['Supabase', 'Sb', '#3ECF8E', '#06201a'], ['Redis', 'Rd', '#DC382D', '#fff'], ['RQ job queue', 'RQ', '#7A1F1F', '#fff'], ['APScheduler', 'Ap', '#4B5563', '#fff'], ['SQLAlchemy', 'SA', '#D71F00', '#fff'], ['Alembic', 'Al', '#6BA81E', '#fff'], ['Railway', 'Rw', '#7B3FE4', '#fff']] },
+    { id: 'data', name: 'Data & documents', items: [['Streamlit', 'St', '#FF4B4B', '#fff'], ['rapidfuzz', 'rf', '#2F6F8F', '#fff'], ['pdfplumber', 'pdf', '#B30B00', '#fff'], ['pypdf', 'pp', '#5A1F1F', '#fff'], ['openpyxl', 'xl', '#217346', '#fff'], ['python-docx', 'dx', '#2B579A', '#fff'], ['ReportLab', 'RL', '#444C55', '#fff'], ['NumPy', 'Np', '#4DABCF', '#06202c']] },
+    { id: 'automation', name: 'Automation & CI/CD', items: [['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Bash', '$_', '#4EAA25', '#fff'], ['Git', 'Git', '#F05032', '#fff'], ['GitHub Actions', 'GA', '#2088FF', '#fff'], ['Docker Compose', 'Dk', '#2496ED', '#fff'], ['uv', 'uv', '#DE5FE9', '#1a1a1a'], ['pre-commit', 'pc', '#FAB040', '#1a1a1a'], ['gitleaks', 'gl', '#1F6FEB', '#fff']] },
+    { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['TypeScript', 'TS', '#3178C6', '#fff'], ['JavaScript', 'JS', '#F7DF1E', '#111'], ['Java', 'Jv', '#E76F00', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['PHP', 'php', '#777BB4', '#fff'], ['HTML', '</>', '#E34F26', '#fff'], ['CSS', '{}', '#663399', '#fff'], ['SQL', 'SQL', '#336791', '#fff']] },
+    { id: 'web', name: 'Web & testing', items: [['React', 'Re', '#61DAFB', '#06202c'], ['Vite', 'Vi', '#646CFF', '#fff'], ['WebAssembly', 'WA', '#654FF0', '#fff'], ['Vitest', 'Vt', '#6E9F18', '#fff'], ['proptest', 'pt', '#3a2a24', '#fff'], ['GitHub Pages', 'GP', '#24292F', '#fff'], ['pytest', 'Pt', '#0A9EDC', '#fff'], ['Ruff', 'Rf', '#D7FF64', '#1a1a1a'], ['mypy', 'my', '#2A6DB2', '#fff']] },
     { id: 'tools', name: 'AI & tools', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e'], ['ServiceNow', 'SN', '#62D84E', '#0c1a10'], ['Jira', 'Ji', '#0052CC', '#fff'], ['Confluence', 'Cf', '#1868DB', '#fff'], ['Miro', 'Mi', '#FFD02F', '#111']] }
   ];
   var filtersEl = $('#filters'), groupsEl = $('#tgroups');
@@ -1006,10 +1129,40 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   });
   function selectPw() { var r = document.createRange(); r.selectNodeContents(pwEl); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
 
+
+  /* ---------- Slack approval mock ---------- */
+  var spent = 2, cap = 5, spendEl = $('#sk-spend');
+  $$('#slack .sk-c').forEach(function (c) {
+    var st = $('.sk-st', c), img = $('.sk-img', c), n = c.dataset.c, btns = $$('button', c);
+    c.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || b.disabled) return;
+      var a = b.dataset.a;
+      if (a === 'approve') { c.classList.add('ok'); c.classList.remove('no'); st.textContent = 'Approved · saved to Drive'; btns.forEach(function (x) { x.disabled = true; }); }
+      else if (a === 'reject') { c.classList.add('no'); st.textContent = 'Rejected'; btns.forEach(function (x) { x.disabled = true; }); }
+      else if (spent >= cap) { st.textContent = 'Cap reached · ask Maya'; b.disabled = true; }
+      else {
+        spent++; spendEl.textContent = 'Spend this request: ' + spent + ' of ' + cap + ' images';
+        st.textContent = 'Regenerating…'; img.classList.add('busy'); btns.forEach(function (x) { x.disabled = true; });
+        setTimeout(function () { img.classList.remove('busy'); img.classList.toggle('alt'); st.textContent = 'Candidate ' + n + ' · new take'; btns.forEach(function (x) { x.disabled = false; }); }, reduce ? 0 : 1200);
+      }
+    });
+  });
+
+
+  /* ---------- Reconciliation mock ---------- */
+  var rc = $('#recon');
+  if (rc) rc.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-v]'); if (!b) return;
+    $('#rc-status').textContent = b.dataset.v;
+    var pill = $('#rc-pill'); pill.textContent = 'Approved by reviewer'; pill.classList.add('ok');
+    $('#rc-why').textContent = 'Decision saved: status set to ' + b.dataset.v + ', with the reviewer and time in the audit trail.';
+  });
+
   /* ---------- Command palette ---------- */
   var dlg = $('#cmdk'), q = $('#cmdk-q'), list = $('#cmdk-list'), active = 0, items = [];
   var CMDS = sections.map(function (s, i) { return { g: 'Sections', t: s.dataset.label, k: String(i + 1).padStart(2, '0'), href: '#' + s.id }; }).concat([
     { g: 'Links', t: 'PassPhrase Pal (live)', k: '↗', href: 'https://alysondelledonne.github.io/password-manager/', ext: 1 },
+    { g: 'Links', t: 'Messy data pipeline repo', k: '↗', href: 'https://github.com/alysondelledonne/messy-data-reconciliation-pipeline', ext: 1 },
     { g: 'Links', t: 'OpenShift homelab repo', k: '↗', href: 'https://github.com/alysondelledonne/openshift-homelab', ext: 1 },
     { g: 'Links', t: 'bits & gloss on Substack', k: '↗', href: 'https://bitsandgloss.substack.com/', ext: 1 },
     { g: 'Links', t: 'GitHub profile', k: '↗', href: 'https://github.com/alysondelledonne', ext: 1 }
