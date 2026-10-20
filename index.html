@@ -343,7 +343,7 @@ section { position: relative; scroll-margin-top: 70px; }
 .post .ar { align-self: start; font-size: 22px; color: var(--muted); transition: transform .3s var(--ease), color .3s; }
 .post:hover .ar { transform: translate(3px, -3px); color: var(--rose); }
 .post .x { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
-.hobbies { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
+.hobbies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
 .hobby { padding: 20px; border-radius: 16px; border: 1px solid var(--line); display: grid; gap: 6px; align-content: start; }
 .hobby .when { font: 500 11px/1 var(--f-mono); letter-spacing: .1em; color: var(--dim); }
 .hobby h3 { font: 600 19px/1.2 var(--f-sans); }
@@ -357,6 +357,8 @@ section { position: relative; scroll-margin-top: 70px; }
 .degree { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; padding-block: 18px; border-top: 1px solid var(--line); }
 .degree:first-of-type { margin-top: 26px; }
 .degree b { font-size: 18px; font-weight: 600; }
+.capstone { grid-column: 1 / -1; color: var(--muted); font-size: 15px; margin-top: 4px; }
+.capstone em { font: 500 11px/1 var(--f-mono); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); margin-right: 8px; }
 .degree span { font: 500 13px/1.6 var(--f-mono); color: var(--steel); font-variant-numeric: tabular-nums; }
 .minors { padding-top: 18px; border-top: 1px solid var(--line); }
 .learn { display: grid; gap: 12px; align-content: start; }
@@ -523,7 +525,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
       <p>I'm a consultant at <strong>Red Hat</strong>. I help enterprises in automotive, financial services, and the nonprofit worlds build platforms on OpenShift, RHEL, Quay, and Ansible Automation Platform. The work is hands-on: cluster networking and storage, RBAC and compliance scanning, and automation that replaces manual administration.</p>
       <p>Before Red Hat, I was a ServiceNow consultant at InSource, where I ran discovery workshops across more than ten client engagements and built the company's HR practice from scratch.</p>
       <p>I'm passionate about <strong>AI-driven delivery</strong>. At Red Hat, I use Claude Code to review and analyze production code, catching gaps and finding improvements, and I completed Red Hat's GenAI training in prompt engineering and delivering generative AI on Red Hat AI Platform. I've built a pipeline that uses Claude to turn piles of messy business files into clean, reviewable records, and an AI image pipeline that I deployed end to end.</p>
-      <p>On my own time, I run an <strong>OpenShift cluster</strong> on a mini PC at home, build projects with <strong>AI-assisted development</strong>, and author <strong>bits &amp; gloss</strong>, a Substack newsletter that teaches readers about the tech world they scroll through, but might not yet understand. On weekends, I'm usually surfing, reading, and shopping the vintage market for curated finds.</p>
+      <p>On my own time, I run an <strong>OpenShift cluster</strong> on a mini PC at home, built <strong>PassPhrase Pal</strong> in Rust and WebAssembly with AI-assisted development, and author <strong>bits &amp; gloss</strong>, a Substack newsletter that teaches readers about the tech world they scroll through, but might not yet understand. On weekends, I'm usually surfing, reading, and shopping the vintage market for curated finds.</p>
     </div>
   </div>
 </div></section>
@@ -554,7 +556,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
       <div>
         <h3>AI-driven delivery</h3>
         <p>I use AI to deliver faster and catch more. Claude Code helps me review and analyze production code, I've trained in prompt engineering and GenAI delivery on Red Hat AI Platform, and I build my own projects with AI-assisted development, reviewing every change myself. I've also built AI pipelines on the Anthropic API, with structured outputs, confidence scores, and evals.</p>
-        <div class="chips"><span class="chip">Claude Code</span><span class="chip">Anthropic API</span><span class="chip">Structured outputs</span><span class="chip">Evals</span><span class="chip">Prompt engineering</span><span class="chip">Red Hat AI Platform</span></div>
+        <div class="chips"><span class="chip">Claude Code</span><span class="chip">Enterprise GPT</span><span class="chip">Anthropic API</span><span class="chip">Structured outputs</span><span class="chip">Evals</span><span class="chip">Prompt engineering</span><span class="chip">Red Hat AI Platform</span></div>
       </div>
     </div>
     <div class="cap fx">
@@ -593,8 +595,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div class="tl-item r">
       <article class="tl-card fx">
         <h3>Top Gun award</h3>
-        <div class="org">Red Hat · Financial services client</div>
-        <p class="tl-lead">Working side by side with a financial services client, I took ownership of an OpenShift administration and automation project in a high-stakes environment and drove it to a result the client could build on. Their confidence in the platform, and in the team, helped lead to approval of a multi-million-dollar deal.</p>
+        <div class="org">Red Hat · Financial sector</div>
+        <p class="tl-lead">Working side by side with a client in the financial sector, I took ownership of an OpenShift administration and automation project in a high-stakes environment and drove it to a result the client could build on. Their confidence in the platform, and in the team, helped lead to approval of a multi-million-dollar deal.</p>
         <ul>
           <li>Independently drove the project from discovery to delivery, owning the outcome end to end instead of handing off a plan.</li>
           <li>Led a cross-organizational team of 8 (2 Red Hat, 6 client-side), keeping engineers and stakeholders aligned on one plan.</li>
@@ -806,10 +808,9 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     </div>
   </div>
   <div class="hobbies">
-    <div class="hobby fx"><span class="when">2023 – NOW</span><h3>Coxswain</h3><p>Steering and calling the race for my rowing club.</p></div>
+    <div class="hobby fx"><span class="when">2015 – NOW</span><h3>Coxswain</h3><p>Varsity coxswain in college. Now I steer and call the race for my rowing club.</p></div>
     <div class="hobby fx"><span class="when">2026 – NOW</span><h3>Pilates instructor</h3><p>BASI Comprehensive certified.</p></div>
-    <div class="hobby fx"><span class="when">2024 – NOW</span><h3>Pickleball</h3><p>Co-founder and organizer of a community group.</p></div>
-    <div class="hobby fx"><span class="when">2023 – NOW</span><h3>The Nook Book Club</h3><p>Co-founder and organizer.</p></div>
+    <div class="hobby fx"><span class="when">2024 – NOW</span><h3>Pickleball club</h3><p>Co-founder and organizer of a community group.</p></div>
   </div>
 </div></section>
 
@@ -821,7 +822,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div class="school fx">
       <h3>Villanova University</h3>
       <p class="sub">Accelerated five-year bachelor's and master's program</p>
-      <div class="degree"><b>M.S. Software Engineering</b><span>May 2020</span></div>
+      <div class="degree"><b>M.S. Software Engineering</b><span>May 2020</span><p class="capstone"><em>Capstone</em> Bioinformatics: the impact of AI on healthcare security and data management.</p></div>
       <div class="degree"><b>B.S. Software Engineering</b><span>May 2019</span></div>
       <div class="minors"><div class="chips"><span class="chip">Minor · Cognitive Science</span><span class="chip">Minor · International Relations</span></div></div>
     </div>
@@ -1051,7 +1052,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     { id: 'automation', name: 'Automation & CI/CD', items: [['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Bash', '$_', '#4EAA25', '#fff'], ['Git', 'Git', '#F05032', '#fff'], ['GitHub Actions', 'GA', '#2088FF', '#fff'], ['Docker Compose', 'Dk', '#2496ED', '#fff'], ['uv', 'uv', '#DE5FE9', '#1a1a1a'], ['pre-commit', 'pc', '#FAB040', '#1a1a1a'], ['gitleaks', 'gl', '#1F6FEB', '#fff']] },
     { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['TypeScript', 'TS', '#3178C6', '#fff'], ['JavaScript', 'JS', '#F7DF1E', '#111'], ['Java', 'Jv', '#E76F00', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['PHP', 'php', '#777BB4', '#fff'], ['HTML', '</>', '#E34F26', '#fff'], ['CSS', '{}', '#663399', '#fff'], ['SQL', 'SQL', '#336791', '#fff']] },
     { id: 'web', name: 'Web & testing', items: [['React', 'Re', '#61DAFB', '#06202c'], ['Vite', 'Vi', '#646CFF', '#fff'], ['WebAssembly', 'WA', '#654FF0', '#fff'], ['Vitest', 'Vt', '#6E9F18', '#fff'], ['proptest', 'pt', '#3a2a24', '#fff'], ['GitHub Pages', 'GP', '#24292F', '#fff'], ['pytest', 'Pt', '#0A9EDC', '#fff'], ['Ruff', 'Rf', '#D7FF64', '#1a1a1a'], ['mypy', 'my', '#2A6DB2', '#fff']] },
-    { id: 'tools', name: 'AI & tools', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e'], ['ServiceNow', 'SN', '#62D84E', '#0c1a10'], ['Jira', 'Ji', '#0052CC', '#fff'], ['Confluence', 'Cf', '#1868DB', '#fff'], ['Miro', 'Mi', '#FFD02F', '#111']] }
+    { id: 'tools', name: 'AI & tools', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Enterprise GPT', 'GPT', '#10A37F', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e'], ['ServiceNow', 'SN', '#62D84E', '#0c1a10'], ['Jira', 'Ji', '#0052CC', '#fff'], ['Confluence', 'Cf', '#1868DB', '#fff'], ['Miro', 'Mi', '#FFD02F', '#111']] }
   ];
   var filtersEl = $('#filters'), groupsEl = $('#tgroups');
   var total = STACK.reduce(function (n, g) { return n + g.items.length; }, 0);
