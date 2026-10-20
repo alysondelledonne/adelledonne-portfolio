@@ -104,6 +104,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 /* ---------- Shared section bits ---------- */
 section { position: relative; scroll-margin-top: 70px; }
 .sec { padding-block: clamp(80px, 12vw, 150px); border-top: 1px solid var(--line); }
+#services { padding-bottom: 0; }
+#services .cap:last-child { border-bottom: 0; }
 .eyebrow { display: flex; align-items: center; gap: 12px; font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 26px; }
 .eyebrow .n { color: var(--rose); }
 .eyebrow .ln { width: 44px; height: 1px; background: var(--line-2); }
@@ -206,6 +208,12 @@ section { position: relative; scroll-margin-top: 70px; }
 .tl-card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 26px 22px; transition: border-color .3s, transform .4s var(--ease); }
 .tl-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
 .tl-card h3 { font: 600 22px/1.2 var(--f-sans); letter-spacing: -.01em; }
+.co-head { display: flex; align-items: center; gap: 14px; }
+.co-logo { flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; background: #fff; overflow: hidden; }
+.co-logo img { width: 80%; height: auto; display: block; }
+.co-logo b { display: none; }
+.co-logo.txt { background: #c00; }
+.co-logo.txt b { display: block; color: #fff; font: 700 11px/1.05 var(--f-sans); text-align: center; letter-spacing: -.01em; }
 .tl-card .org { font: 500 14px/1.4 var(--f-mono); color: var(--rose); margin: 6px 0 16px; }
 .tl-lead { color: var(--paper); font-size: 15px; line-height: 1.6; margin: -4px 0 16px; padding-left: 14px; border-left: 2px solid var(--rose); }
 .tl-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -235,7 +243,7 @@ section { position: relative; scroll-margin-top: 70px; }
 .tgroup { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 20px 40px; padding-block: 32px; border-top: 1px solid var(--line); }
 .tgroup h3 { font: 700 clamp(26px, 2.8vw, 34px)/1 var(--f-sans); letter-spacing: -.02em; color: var(--rose); text-transform: uppercase; }
 .tgroup .cnt { display: block; margin-top: 10px; font: 500 11px/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
-.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; align-content: start; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; align-content: start; }
 .tile { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); font-size: 14px; font-weight: 500; transition: border-color .25s, transform .3s var(--ease), background .25s; }
 .tile:hover { border-color: var(--rose); transform: translateY(-2px); background: var(--card-2); }
 .badge { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; font: 600 11px/1 var(--f-mono); letter-spacing: -.02em; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
@@ -419,6 +427,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   .cap-n { font-size: 84px; }
 }
 @media (max-width: 720px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tl-line { left: 9px; }
   .tl-item, .tl-item.r { grid-template-columns: 20px minmax(0, 1fr); column-gap: 18px; row-gap: 10px; }
   .tl-item .tl-node, .tl-item.r .tl-node { grid-column: 1; grid-row: 1; justify-self: start; margin-top: 3px; }
@@ -492,7 +501,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
         <div class="cta">
           <a class="btn pri" href="#work">View my work <span class="ar">→</span></a>
           <a class="btn sec2" href="#experience">Experience</a>
-          <a class="btn txt" href="https://github.com/alysondelledonne">GitHub ↗</a>
+          <a class="btn txt" href="https://github.com/alysondelledonne" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </div>
       </div>
       <div class="stats hf" style="--d:5" aria-label="At a glance">
@@ -612,8 +621,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <div class="tl-item">
       <article class="tl-card fx">
-        <h3>Consultant</h3>
-        <div class="org">Red Hat · Remote</div>
+        <div class="co-head"><span class="co-logo"><img src="redhat-logo.svg" alt="Red Hat" onerror="this.parentNode.classList.add('txt');this.remove()"><b>Red Hat</b></span><div><h3>Consultant</h3>
+        <div class="org">Red Hat · Remote</div></div></div>
         <ul>
           <li>Deliver hands-on implementation across 5+ enterprise engagements in automotive, nonprofit, and financial services.</li>
           <li>Build infrastructure on OpenShift Container Platform, RHEL, Quay, and Ansible Automation Platform.</li>
@@ -689,8 +698,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
         </ul>
         <div class="chips"><span class="chip">Rust</span><span class="chip">WebAssembly</span><span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">proptest</span><span class="chip">GitHub Actions</span></div>
         <div class="links">
-          <a class="btn pri" href="https://alysondelledonne.github.io/password-manager/">Try it live <span class="ar">↗</span></a>
-          <a class="btn sec2" href="https://github.com/alysondelledonne/password-manager">Code</a>
+          <a class="btn pri" href="https://alysondelledonne.github.io/password-manager/" target="_blank" rel="noopener noreferrer">Try it live <span class="ar">↗</span></a>
+          <a class="btn sec2" href="https://github.com/alysondelledonne/password-manager" target="_blank" rel="noopener noreferrer">Code</a>
         </div>
       </div>
       <div class="demo" aria-live="polite">
@@ -722,7 +731,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
           <li>An eval harness scores every stage against generated ground truth, and GitHub Actions fails the build if a score drops below baseline.</li>
         </ul>
         <div class="chips"><span class="chip">Python</span><span class="chip">Anthropic API</span><span class="chip">Pydantic</span><span class="chip">PostgreSQL</span><span class="chip">SQLAlchemy</span><span class="chip">rapidfuzz</span><span class="chip">Streamlit</span><span class="chip">Docker</span></div>
-        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/messy-data-reconciliation-pipeline">View the repo <span class="ar">↗</span></a></div>
+        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/messy-data-reconciliation-pipeline" target="_blank" rel="noopener noreferrer">View the repo <span class="ar">↗</span></a></div>
       </div>
       <div class="recon" id="recon">
         <div class="rc-flow" aria-label="Pipeline stages"><span>Ingest</span><span>Extract</span><span>Validate</span><span>Reconcile</span><span class="on">Review</span></div>
@@ -777,7 +786,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
           <li>The repo holds install and network notes, design decisions, a troubleshooting log, and Bash scripts for DNS and cluster health checks.</li>
         </ul>
         <div class="chips"><span class="chip">OpenShift 4.22</span><span class="chip">Assisted Installer</span><span class="chip">Cloudflare DNS</span><span class="chip">Bash</span></div>
-        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/openshift-homelab">View the repo <span class="ar">↗</span></a></div>
+        <div class="links"><a class="btn sec2" href="https://github.com/alysondelledonne/openshift-homelab" target="_blank" rel="noopener noreferrer">View the repo <span class="ar">↗</span></a></div>
       </div>
       <div class="term">
         <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/openshift-homelab</span></div>
@@ -801,12 +810,12 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div class="copy fx">
       <p>I started <strong>bits &amp; gloss</strong> in September 2026. It's a weekly newsletter that explains how AI actually works, in plain English and without the gatekeeping.</p>
       <p>Every post spills the tea first, then shows the receipts.</p>
-      <div class="cta"><a class="btn pri" href="https://bitsandgloss.substack.com/">Read bits &amp; gloss <span class="ar">↗</span></a></div>
+      <div class="cta"><a class="btn pri" href="https://bitsandgloss.substack.com/" target="_blank" rel="noopener noreferrer">Read bits &amp; gloss <span class="ar">↗</span></a></div>
     </div>
     <div class="posts">
-      <a class="post fx" href="https://bitsandgloss.substack.com/p/new-song-who-dis-how-spotify-recommends"><span class="d">Oct 19, 2026 · New</span><span class="t">New Song, Who Dis? How Spotify Recommends Your Next Favorite Track</span><span class="ar" aria-hidden="true">↗</span><span class="x">Inside Release Radar and Discover Weekly: how your listening, similar listeners, and the sound of a song shape what plays next.</span></a>
-      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually"><span class="d">Oct 6, 2026 · Part I</span><span class="t">Spilling the Tea on How AI Actually Works</span><span class="ar" aria-hidden="true">↗</span><span class="x">Tokens, embeddings, and attention: what happens after you hit Enter.</span></a>
-      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually-5fe"><span class="d">Oct 12, 2026 · Part II</span><span class="t">How AI learns, and why it makes things up</span><span class="ar" aria-hidden="true">↗</span><span class="x">Training, hallucinations, memory, and five habits for getting better answers.</span></a>
+      <a class="post fx" href="https://bitsandgloss.substack.com/p/new-song-who-dis-how-spotify-recommends" target="_blank" rel="noopener noreferrer"><span class="d">Oct 19, 2026 · New</span><span class="t">New Song, Who Dis? How Spotify Recommends Your Next Favorite Track</span><span class="ar" aria-hidden="true">↗</span><span class="x">Inside Release Radar and Discover Weekly: how your listening, similar listeners, and the sound of a song shape what plays next.</span></a>
+      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually" target="_blank" rel="noopener noreferrer"><span class="d">Oct 6, 2026 · Part I</span><span class="t">Spilling the Tea on How AI Actually Works</span><span class="ar" aria-hidden="true">↗</span><span class="x">Tokens, embeddings, and attention: what happens after you hit Enter.</span></a>
+      <a class="post fx" href="https://bitsandgloss.substack.com/p/spilling-the-tea-on-how-ai-actually-5fe" target="_blank" rel="noopener noreferrer"><span class="d">Oct 12, 2026 · Part II</span><span class="t">How AI learns, and why it makes things up</span><span class="ar" aria-hidden="true">↗</span><span class="x">Training, hallucinations, memory, and five habits for getting better answers.</span></a>
     </div>
   </div>
   <div class="hobbies">
@@ -841,8 +850,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   <h2 class="fx">Let's build something <span class="s">reliable</span>.</h2>
   <p class="fx">I'm looking for forward-deployed engineering roles where I can embed with customers, ship to production, and bring AI into how the work gets done. The best way to see how I work is in my repos.</p>
   <div class="cta fx">
-    <a class="btn pri" href="https://github.com/alysondelledonne">Find me on GitHub <span class="ar">↗</span></a>
-    <a class="btn sec2" href="https://bitsandgloss.substack.com/">Subscribe to bits &amp; gloss</a>
+    <a class="btn pri" href="https://github.com/alysondelledonne" target="_blank" rel="noopener noreferrer">Find me on GitHub <span class="ar">↗</span></a>
+    <a class="btn sec2" href="https://bitsandgloss.substack.com/" target="_blank" rel="noopener noreferrer">Subscribe to bits &amp; gloss</a>
   </div>
 </div></section>
 
@@ -867,9 +876,9 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <div>
       <h4>Elsewhere</h4>
       <ul>
-        <li><a href="https://github.com/alysondelledonne">GitHub ↗</a></li>
-        <li><a href="https://bitsandgloss.substack.com/">bits &amp; gloss ↗</a></li>
-        <li><a href="https://github.com/alysondelledonne/openshift-homelab">Homelab repo ↗</a></li>
+        <li><a href="https://github.com/alysondelledonne" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+        <li><a href="https://bitsandgloss.substack.com/" target="_blank" rel="noopener noreferrer">bits &amp; gloss ↗</a></li>
+        <li><a href="https://github.com/alysondelledonne/openshift-homelab" target="_blank" rel="noopener noreferrer">Homelab repo ↗</a></li>
         <li>Press <span class="mono">⌘K</span> to jump anywhere</li>
       </ul>
     </div>
@@ -1088,14 +1097,11 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
   /* ---------- Tech stack ---------- */
   var STACK = [
-    { id: 'platform', name: 'Platform & cloud', items: [['OpenShift', 'OS', '#EE0000', '#fff'], ['Kubernetes', 'K8s', '#326CE5', '#fff'], ['RHEL 8/9', 'RH', '#B80000', '#fff'], ['Quay', 'Qy', '#40B4E5', '#06202c'], ['OpenShift Virtualization', 'VM', '#8F1D23', '#fff'], ['Linux', 'Lx', '#FCC624', '#1a1a1a'], ['Cloudflare DNS', 'CF', '#F38020', '#fff']] },
-    { id: 'ai', name: 'AI & integrations', items: [['Anthropic API (Claude)', 'An', '#CC785C', '#fff'], ['Structured outputs', 'SO', '#8A5A44', '#fff'], ['Luma AI API', 'Lu', '#2B2B30', '#fff'], ['Slack API', 'Sl', '#4A154B', '#fff'], ['Google Sheets API', 'GS', '#0F9D58', '#fff'], ['Google Drive API', 'GD', '#1A73E8', '#fff'], ['Google Apps Script', 'AS', '#F4B400', '#1a1a1a']] },
-    { id: 'backend', name: 'Backend & data', items: [['FastAPI', 'Fa', '#009688', '#fff'], ['Pydantic', 'Pd', '#E92063', '#fff'], ['PostgreSQL', 'Pg', '#4169E1', '#fff'], ['Supabase', 'Sb', '#3ECF8E', '#06201a'], ['Redis', 'Rd', '#DC382D', '#fff'], ['RQ job queue', 'RQ', '#7A1F1F', '#fff'], ['APScheduler', 'Ap', '#4B5563', '#fff'], ['SQLAlchemy', 'SA', '#D71F00', '#fff'], ['Alembic', 'Al', '#6BA81E', '#fff'], ['Railway', 'Rw', '#7B3FE4', '#fff']] },
-    { id: 'data', name: 'Data & documents', items: [['Streamlit', 'St', '#FF4B4B', '#fff'], ['rapidfuzz', 'rf', '#2F6F8F', '#fff'], ['pdfplumber', 'pdf', '#B30B00', '#fff'], ['pypdf', 'pp', '#5A1F1F', '#fff'], ['openpyxl', 'xl', '#217346', '#fff'], ['python-docx', 'dx', '#2B579A', '#fff'], ['ReportLab', 'RL', '#444C55', '#fff'], ['NumPy', 'Np', '#4DABCF', '#06202c']] },
-    { id: 'automation', name: 'Automation & CI/CD', items: [['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Bash', '$_', '#4EAA25', '#fff'], ['Git', 'Git', '#F05032', '#fff'], ['GitHub Actions', 'GA', '#2088FF', '#fff'], ['Docker Compose', 'Dk', '#2496ED', '#fff'], ['uv', 'uv', '#DE5FE9', '#1a1a1a'], ['pre-commit', 'pc', '#FAB040', '#1a1a1a'], ['gitleaks', 'gl', '#1F6FEB', '#fff']] },
-    { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['TypeScript', 'TS', '#3178C6', '#fff'], ['JavaScript', 'JS', '#F7DF1E', '#111'], ['Java', 'Jv', '#E76F00', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['PHP', 'php', '#777BB4', '#fff'], ['HTML', '</>', '#E34F26', '#fff'], ['CSS', '{}', '#663399', '#fff'], ['SQL', 'SQL', '#336791', '#fff']] },
-    { id: 'web', name: 'Web & testing', items: [['React', 'Re', '#61DAFB', '#06202c'], ['Vite', 'Vi', '#646CFF', '#fff'], ['WebAssembly', 'WA', '#654FF0', '#fff'], ['Vitest', 'Vt', '#6E9F18', '#fff'], ['proptest', 'pt', '#3a2a24', '#fff'], ['GitHub Pages', 'GP', '#24292F', '#fff'], ['pytest', 'Pt', '#0A9EDC', '#fff'], ['Ruff', 'Rf', '#D7FF64', '#1a1a1a'], ['mypy', 'my', '#2A6DB2', '#fff']] },
-    { id: 'tools', name: 'AI & tools', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Enterprise GPT', 'GPT', '#10A37F', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e'], ['ServiceNow', 'SN', '#62D84E', '#0c1a10'], ['Jira', 'Ji', '#0052CC', '#fff'], ['Confluence', 'Cf', '#1868DB', '#fff'], ['Miro', 'Mi', '#FFD02F', '#111']] }
+    { id: 'ai', name: 'AI', items: [['Claude Code', 'CC', '#D97757', '#fff'], ['Enterprise GPT', 'GPT', '#10A37F', '#fff'], ['Anthropic API', 'An', '#CC785C', '#fff'], ['Prompt engineering', 'PE', '#ff5c8a', '#0c0b0e']] },
+    { id: 'platform', name: 'Platform', items: [['OpenShift', 'OS', '#EE0000', '#fff'], ['Kubernetes', 'K8s', '#326CE5', '#fff'], ['RHEL', 'RH', '#B80000', '#fff'], ['OpenShift Virtualization', 'VM', '#8F1D23', '#fff'], ['YAML', 'yml', '#CB171E', '#fff'], ['Vault', 'Vt', '#FFD814', '#1a1a1a']] },
+    { id: 'automation', name: 'Automation & CI/CD', items: [['Argo CD', 'Ar', '#EF7B4D', '#fff'], ['GitOps', 'GO', '#2F7D6D', '#fff'], ['Ansible AAP', 'A', '#1A1A1A', '#fff'], ['Docker', 'Dk', '#2496ED', '#fff'], ['Jenkins', 'Jk', '#D24939', '#fff'], ['Tekton', 'Tk', '#FD495C', '#fff']] },
+    { id: 'languages', name: 'Languages', items: [['Python', 'Py', '#3776AB', '#FFD43B'], ['Rust', 'Rs', '#CE422B', '#fff'], ['Java', 'Jv', '#E76F00', '#fff'], ['SQL', 'SQL', '#336791', '#fff'], ['Go', 'Go', '#00ADD8', '#fff'], ['C/C++', 'C++', '#00599C', '#fff'], ['CSS', '{}', '#663399', '#fff'], ['HTML', '</>', '#E34F26', '#fff']] },
+    { id: 'data', name: 'Data & backend', items: [['PostgreSQL', 'Pg', '#4169E1', '#fff'], ['FastAPI', 'Fa', '#009688', '#fff'], ['Redis', 'Rd', '#DC382D', '#fff'], ['Streamlit', 'St', '#FF4B4B', '#fff']] }
   ];
   var filtersEl = $('#filters'), groupsEl = $('#tgroups');
   var total = STACK.reduce(function (n, g) { return n + g.items.length; }, 0);
