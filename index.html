@@ -63,8 +63,7 @@ em.s, .s { font-family: var(--f-serif); font-style: italic; font-weight: 400; co
   animation: ld-failsafe .3s 4.5s forwards; }
 #loader.out { clip-path: inset(0 0 100% 0); }
 @keyframes ld-failsafe { to { visibility: hidden; opacity: 0; } }
-.ld-word { font: 400 clamp(44px, 8vw, 84px)/1 var(--f-serif); font-style: italic; color: var(--paper); }
-.ld-word.swap { animation: ld-swap .32s var(--ease); }
+#ld-canvas { display: block; width: min(220px, 52vw); height: min(220px, 52vw); }
 @keyframes ld-swap { from { opacity: 0; transform: translateY(14px); filter: blur(4px); } }
 .ld-meta { position: absolute; left: max(20px, env(safe-area-inset-left, 0px)); bottom: calc(26px + env(safe-area-inset-bottom, 0px)); font: 500 12px/1 var(--f-mono); letter-spacing: .14em; color: var(--rose); }
 .ld-meta b { color: var(--paper); font-weight: 500; margin-left: 8px; font-variant-numeric: tabular-nums; }
@@ -455,7 +454,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 <div id="cursor" aria-hidden="true"><i></i></div>
 
 <div id="loader" aria-hidden="true">
-  <div class="ld-word">hello</div>
+  <canvas id="ld-canvas" width="220" height="220"></canvas>
   <div class="ld-meta">LOADING<b id="ld-pct">0</b>%</div>
   <div class="ld-bar"><i></i></div>
 </div>
@@ -901,19 +900,47 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
   try { seen = sessionStorage.getItem('ad-seen') === '1'; sessionStorage.setItem('ad-seen', '1'); } catch (e) {}
   if (!loader || seen || reduce) { if (loader) loader.remove(); requestAnimationFrame(ready); }
   else {
-    var words = ['hello', 'ciao', 'hola', 'bonjour', 'hey there', 'Alyson.'];
-    var w = $('.ld-word', loader), pct = $('#ld-pct'), bar = $('.ld-bar i', loader);
-    var t0 = performance.now(), dur = 2200, wi = 0;
-    var swap = setInterval(function () {
-      wi++; if (wi >= words.length) return;
-      w.textContent = words[wi]; w.classList.remove('swap'); void w.offsetWidth; w.classList.add('swap');
-    }, dur / words.length);
+    var pct = $('#ld-pct'), bar = $('.ld-bar i', loader), cv = $('#ld-canvas', loader), ctx = cv.getContext('2d');
+    var t0 = performance.now(), dur = 2600, cells = [], N = 40, S = 220, cell = S / N, WIN = .24;
+    // Paint the tab icon small, then read it back pixel by pixel: each pixel becomes a cell that turns into a 0 or 1.
+    try {
+      var dpr = Math.min(2, window.devicePixelRatio || 1), sz = cv.getBoundingClientRect().width || S;
+      S = sz; cell = S / N; cv.width = Math.round(S * dpr); cv.height = Math.round(S * dpr); ctx.scale(dpr, dpr);
+      var off = document.createElement('canvas'); off.width = off.height = N;
+      var o = off.getContext('2d'); o.scale(N / 64, N / 64);
+      o.fillStyle = '#211d27'; o.beginPath();
+      if (o.roundRect) o.roundRect(0, 0, 64, 64, 14); else o.rect(0, 0, 64, 64);
+      o.fill();
+      o.fillStyle = '#f3eff0'; o.fill(new Path2D('M8 52 21 12h8l13 40h-8.5L31 44H19l-2.5 8zM21.3 36h7.4L25 24.5z'), 'evenodd');
+      o.fillStyle = '#ff5c8a'; o.beginPath(); o.arc(52, 47, 6, 0, Math.PI * 2); o.fill();
+      var px = o.getImageData(0, 0, N, N).data;
+      for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+        var k = (y * N + x) * 4, al = px[k + 3] / 255; if (al < .05) continue;
+        var r = px[k], g = px[k + 1], bl = px[k + 2], bgCell = r < 60 && g < 60 && bl < 60;
+        cells.push({ x: x, y: y, a: al, c: 'rgb(' + r + ',' + g + ',' + bl + ')', gc: bgCell ? '#6b6472' : 'rgb(' + r + ',' + g + ',' + bl + ')',
+          t: .06 + .66 * (.6 * (y / N) + .4 * Math.random()), b: Math.random() < .5 ? 0 : 1, d: .6 + Math.random() * 1.4 });
+      }
+    } catch (e) { cells = []; }
+    function draw(p) {
+      ctx.clearRect(0, 0, S, S);
+      ctx.font = '600 ' + (cell * 1.15).toFixed(1) + 'px "Geist Mono", ui-monospace, Menlo, monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      for (var i = 0; i < cells.length; i++) {
+        var c = cells[i];
+        if (p < c.t) { ctx.globalAlpha = c.a; ctx.fillStyle = c.c; ctx.fillRect(c.x * cell, c.y * cell, cell + .6, cell + .6); continue; }
+        var k = (p - c.t) / WIN; if (k >= 1) continue;
+        ctx.globalAlpha = c.a * (1 - k * k); ctx.fillStyle = k < .2 ? c.c : c.gc;
+        var bit = (c.b + Math.floor(k * 7)) % 2;
+        ctx.fillText(String(bit), (c.x + .5) * cell, (c.y + .5) * cell + k * cell * 4 * c.d);
+      }
+      ctx.globalAlpha = 1;
+    }
     (function tick(now) {
       var p = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - p, 3);
       pct.textContent = Math.round(e * 100); bar.style.transform = 'scaleX(' + e + ')';
+      draw(p);
       if (p < 1) requestAnimationFrame(tick);
-      else { clearInterval(swap); w.textContent = words[words.length - 1];
-        setTimeout(function () { loader.classList.add('out'); ready(); setTimeout(function () { loader.remove(); }, 1000); }, 280); }
+      else setTimeout(function () { loader.classList.add('out'); ready(); setTimeout(function () { loader.remove(); }, 1000); }, 220);
     })(t0);
   }
   setTimeout(ready, 3800);
