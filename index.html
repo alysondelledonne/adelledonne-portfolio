@@ -208,14 +208,6 @@ section { position: relative; scroll-margin-top: 70px; }
 .tl-card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 26px 22px; transition: border-color .3s, transform .4s var(--ease); }
 .tl-card:hover { border-color: var(--line-2); transform: translateY(-3px); }
 .tl-card h3 { font: 600 22px/1.2 var(--f-sans); letter-spacing: -.01em; }
-.co-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-.co-head .org { margin: 4px 0 0; }
-.co-head h3 { line-height: 1.15; }
-.co-logo { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: #fff; overflow: hidden; }
-.co-logo img { width: 80%; height: auto; display: block; }
-.co-logo b { display: none; }
-.co-logo.txt { background: #c00; }
-.co-logo.txt b { display: block; color: #fff; font: 700 11px/1.05 var(--f-sans); text-align: center; letter-spacing: -.01em; }
 .tl-card .org { font: 500 14px/1.4 var(--f-mono); color: var(--rose); margin: 6px 0 16px; }
 .tl-lead { color: var(--paper); font-size: 15px; line-height: 1.6; margin: -4px 0 16px; padding-left: 14px; border-left: 2px solid var(--rose); }
 .tl-card ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -623,8 +615,8 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <div class="tl-item">
       <article class="tl-card fx">
-        <div class="co-head"><span class="co-logo"><img src="redhat-logo.svg" alt="Red Hat" onerror="this.parentNode.classList.add('txt');this.remove()"><b>Red Hat</b></span><div><h3>Consultant</h3>
-        <div class="org">Red Hat · Remote</div></div></div>
+        <h3>Consultant</h3>
+        <div class="org">Red Hat · Remote</div>
         <ul>
           <li>Deliver hands-on implementation across 5+ enterprise engagements in automotive, nonprofit, and financial services.</li>
           <li>Build infrastructure on OpenShift Container Platform, RHEL, Quay, and Ansible Automation Platform.</li>
