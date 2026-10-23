@@ -682,6 +682,34 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
     <article class="proj fx" data-tilt>
       <div>
         <div class="idx">_01 · Oct 2026 – Now</div>
+        <h3>Cluster Triage Agent</h3>
+        <p class="sum">An AI agent that takes a broken Kubernetes namespace and returns the root cause, the evidence it used, and a proposed YAML fix for a person to review and apply.</p>
+        <ul>
+          <li>It sees the cluster only through five read-only tools on an MCP server, running as a ServiceAccount limited to get, list, and watch. A test fails CI if that role ever gains a write verb or access to Secrets.</li>
+          <li>Every evidence quote is checked against the real tool output. Quotes that aren't there, or fixes that touch Secrets, cluster-wide objects, or another namespace, go back to the model with the reasons.</li>
+          <li>Evals on six failure scenarios recorded from a real kind cluster compare Claude Haiku with Grok. With the final prompt, both diagnose 18 of 18 correctly, and Haiku costs about a tenth as much per incident, so it's the default.</li>
+          <li>One prompt change, measured before and after, removed Grok's last misdiagnosis. The early runs also exposed bugs in my own measuring tools and the agent loop, each fixed and documented.</li>
+          <li>GitHub Actions runs offline tests and an eval gate on every PR, re-records the scenarios on a fresh kind cluster weekly, and reproduces the results table on demand. Gitleaks scans the full history for secrets.</li>
+        </ul>
+        <div class="chips"><span class="chip">Python</span><span class="chip">MCP</span><span class="chip">Kubernetes</span><span class="chip">kind</span><span class="chip">Anthropic API</span><span class="chip">xAI API</span><span class="chip">Pydantic</span><span class="chip">GitHub Actions</span></div>
+        <div class="links">
+          <a class="btn pri" href="https://github.com/alysondelledonne/cluster-triage-agent" target="_blank" rel="noopener noreferrer">View the repo <span class="ar">↗</span></a>
+          <a class="btn sec2" href="https://github.com/alysondelledonne/cluster-triage-agent#results" target="_blank" rel="noopener noreferrer">Eval results</a>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span>~/cluster-triage-agent</span></div>
+        <div class="term-body"><span class="pr">$</span> triage --replay 06-rbac-denied<br><span class="ok">RBACDenied</span>: ServiceAccount/reporter (confidence 0.95)<br>Evidence:<br>&nbsp;&nbsp;[get_logs] configmaps "report-settings" is forbidden<br>&nbsp;&nbsp;[can_i] allowed: false<br>Proposed fix: a Role that can get only that ConfigMap, bound to reporter<br>5 tool calls · 7.5s · $0.0028 (claude-haiku-5-5)</div>
+        <div class="phase"><span class="pn">_01</span><span>Read-only MCP tools and six seeded failures</span><span class="pill-s done">done · Oct 2026</span></div>
+        <div class="phase"><span class="pn">_02</span><span>The agent, with grounded evidence checks</span><span class="pill-s done">done · Oct 2026</span></div>
+        <div class="phase"><span class="pn">_03</span><span>Evals comparing two models, CI, and a README a stranger can follow</span><span class="pill-s done">done · Oct 2026</span></div>
+        <div class="phase"><span class="pn">_04</span><span>Test that fixes work, more scenarios, and tracing</span><span class="pill-s next">up next</span></div>
+      </div>
+    </article>
+
+    <article class="proj fx" data-tilt>
+      <div>
+        <div class="idx">_02 · Oct 2026 – Now</div>
         <h3>PassPhrase Pal</h3>
         <p class="sum">A website that makes memorable, unique passwords, with a Rust core compiled to WebAssembly.</p>
         <ul>
@@ -714,7 +742,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <article class="proj fx" data-tilt>
       <div>
-        <div class="idx">_02 · Oct 2026</div>
+        <div class="idx">_03 · Oct 2026</div>
         <h3>Messy Data Reconciliation Pipeline</h3>
         <p class="sum">Give it a target schema and a pile of messy files. It returns one clean, deduplicated table where every value traces back to its source, and it flags what needs a person's review.</p>
         <ul>
@@ -743,7 +771,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <article class="proj fx" data-tilt>
       <div>
-        <div class="idx">_03 · Sep 2026</div>
+        <div class="idx">_04 · Sep 2026</div>
         <span class="flag">Private repo</span>
         <h3>Shot Idea Orchestrator</h3>
         <p class="sum">An AI pipeline that turns a small brand's shot ideas into approved product photos, without asking the team to open a new app.</p>
@@ -771,7 +799,7 @@ dialog#cmdk[open] { animation: pop .28s var(--ease); }
 
     <article class="proj fx" data-tilt>
       <div>
-        <div class="idx">_04 · Oct 2026 – Now</div>
+        <div class="idx">_05 · Oct 2026 – Now</div>
         <h3>OpenShift Homelab</h3>
         <p class="sum">A bare-metal, single-node OpenShift 4.22 cluster on a mini PC on my desk, documented in public.</p>
         <ul>
